@@ -1,0 +1,20 @@
+projects:
+  ethereum:
+    x_accounts:
+      - "@ethereum"
+      - "@TimBeiko"
+    blogs:
+      - "blog.ethereum.org"
+    github_orgs:
+      - "ethereum"
+    governance:
+      - "https://gov.ethereum.org"
+
+  uniswap:
+    x_accounts:
+      - "@Uniswap"
+      - "@UniswapFND"
+    blogs:
+      - "uniswap.org/blog"
+    github_orgs:
+      - "Uniswap"
