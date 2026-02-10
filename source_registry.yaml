@@ -1,5 +1,7 @@
 projects:
   ethereum:
+    networks:
+      - "ethereum"
     x_accounts:
       - "@ethereum"
       - "@TimBeiko"
@@ -11,6 +13,8 @@ projects:
       - "https://gov.ethereum.org"
 
   uniswap:
+    networks:
+      - "ethereum"
     x_accounts:
       - "@Uniswap"
       - "@UniswapFND"
@@ -18,3 +22,13 @@ projects:
       - "uniswap.org/blog"
     github_orgs:
       - "Uniswap"
+  
+  eigenlayer:
+    networks:
+      - "ethereum"
+    x_accounts:
+      - "@eigenlayer"
+    blogs:
+      - "blog.eigenlayer.xyz"
+    github_orgs:
+      - "Layr-Labs"
