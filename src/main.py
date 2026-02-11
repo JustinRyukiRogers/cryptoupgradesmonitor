@@ -1,7 +1,7 @@
 import os
 import yaml
 import time
-from typing import List, Dict
+from datetime import datetime, timedelta
 from datetime import datetime
 from dotenv import load_dotenv
 
@@ -106,35 +106,63 @@ def main():
                 print(f"Analysis error: {e}")
 
         # 3. Clustering & Verification
+        # Group by Project -> Clusters (Time-based sliding window)
+        # Events for a project within 24 hours of each other are considered part of the same "Upgrade Candidates".
+        
         for project, events in project_events.items():
             if not events:
                 continue
 
-            # Verification
-            confirmation = verification_agent.verify(events)
+            # Sort events by time
+            events.sort(key=lambda x: x.timestamp)
             
-            if confirmation.confidence < 0.6:
-                print(f"Skipping low confidence candidate for {project} (Score: {confirmation.confidence})")
-                continue
-            
-            # Status
-            statuses = [status_agent.determine_status(e) for e in events]
-            final_status = statuses[0] 
-            
-            # Canonicalization
-            canonical = canonicalizer.canonicalize(events, confirmation, final_status)
-            
-            print(f"\n[NEW UPGRADE DETECTED] {project.upper()}")
-            print(f"Headline: {canonical.headline}")
-            print(f"Status: {canonical.status.value}")
-            print(f"Confidence: {canonical.confidence}")
-            print("-" * 30)
-            
-            # 4. Output
-            output_manager.save_upgrade(canonical)
+            # Create clusters
+            clusters: List[List[RawEvent]] = []
+            if events:
+                current_cluster = [events[0]]
+                for i in range(1, len(events)):
+                    prev_event = current_cluster[-1]
+                    curr_event = events[i]
+                    # 24 hour window
+                    if (curr_event.timestamp - prev_event.timestamp) <= timedelta(hours=24):
+                        current_cluster.append(curr_event)
+                    else:
+                        clusters.append(current_cluster)
+                        current_cluster = [curr_event]
+                clusters.append(current_cluster)
+
+            print(f"Project {project}: Formed {len(clusters)} clusters from {len(events)} events")
+
+            for cluster in clusters:
+                # Verification
+                confirmation = verification_agent.verify(cluster)
+                
+                if confirmation.confidence < 0.4:
+                    print(f"Skipping low confidence candidate for {project} (Score: {confirmation.confidence}) based on {len(cluster)} events")
+                    print(f"Reasoning: {confirmation.reasoning}")
+                    continue
+                
+                # Status
+                statuses = [status_agent.determine_status(e) for e in cluster]
+                final_status = statuses[0] 
+                
+                # Canonicalization
+                canonical = canonicalizer.canonicalize(cluster, confirmation, final_status)
+                
+                print(f"\n[NEW UPGRADE DETECTED] {project.upper()}")
+                print(f"Headline: {canonical.headline}")
+                print(f"Status: {canonical.status.value}")
+                print(f"Confidence: {canonical.confidence}")
+                print("-" * 30)
+                
+                # 4. Output
+                output_manager.save_upgrade(canonical)
 
         print("Cycle complete. Sleeping for 60s...")
         time.sleep(60)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nStopping Monitor...")

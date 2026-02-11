@@ -47,7 +47,8 @@ class GitHubReleaseAgent(BaseWatcher):
             for repo in repos:
                 repo_name = repo["name"]
                 full_name = repo["full_name"]
-                releases_url = f"https://api.github.com/repos/{full_name}/releases?per_page=3"
+                # Increased limit for better historical context
+                releases_url = f"https://api.github.com/repos/{full_name}/releases?per_page=10"
                 
                 try:
                     r_resp = requests.get(releases_url, headers=self.headers)

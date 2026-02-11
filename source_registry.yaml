@@ -10,7 +10,7 @@ projects:
     github_orgs:
       - "ethereum"
     governance:
-      - "https://gov.ethereum.org"
+      - "https://blog.ethereum.org/#"
 
   uniswap:
     networks:
@@ -19,7 +19,7 @@ projects:
       - "@Uniswap"
       - "@UniswapFND"
     blogs:
-      - "uniswap.org/blog"
+      - "https://blog.uniswap.org/"
     github_orgs:
       - "Uniswap"
   

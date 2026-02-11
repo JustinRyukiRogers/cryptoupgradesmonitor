@@ -3,7 +3,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from typing import List, Optional, Set
-from datetime import datetime
+from datetime import datetime, timezone
 from src.models import RawEvent, ProjectConfig, SourceType
 from src.ingestion.base import BaseWatcher
 
@@ -51,8 +51,8 @@ class BlogRSSAgent(BaseWatcher):
         
         # Limit initial fetch to avoid overwhelming the pipeline
         if not self.last_seen_cursor:
-            print(f"  [Limit] Returning latest 5 events for initial poll")
-            return all_events[-5:]
+            print(f"  [Limit] Returning latest 20 events for initial poll")
+            return all_events[-20:]
             
         return all_events
 
@@ -64,19 +64,38 @@ class BlogRSSAgent(BaseWatcher):
             f"{base.rstrip('/')}/feed",
             f"{base.rstrip('/')}/rss",
             f"{base.rstrip('/')}/rss.xml",
+            f"{base.rstrip('/')}/feed.xml", # Common for Jekyll/GitHub Pages (like Ethereum blog)
             f"{base.rstrip('/')}/index.xml",
             base # Sometimes base URL is the feed
         ]
         
         for url in feed_urls:
             try:
-                f = feedparser.parse(url)
-                if not f.bozo and len(f.entries) > 0:
-                    events = []
-                    for entry in f.entries:
-                        events.append(self._parse_feed_entry(entry))
-                    return [e for e in events if e is not None]
-            except Exception:
+                # Use requests first to handle SSL/User-Agent better than feedparser's internal fetcher
+                # The debug script showed feedparser failing SSL while requests succeeded.
+                headers = {"User-Agent": "CryptoUpgradeMonitor/1.0"}
+                resp = requests.get(url, headers=headers, timeout=10)
+                
+                if resp.status_code == 200:
+                    # Parse the content directly
+                    f = feedparser.parse(resp.content)
+                    
+                    if len(f.entries) > 0:
+                        events = []
+                        for entry in f.entries:
+                            events.append(self._parse_feed_entry(entry))
+                        return [e for e in events if e is not None]
+                else:
+                    # Fallback to standard feedparser if requests fails (unlikely given debug results)
+                    f = feedparser.parse(url)
+                    if not f.bozo and len(f.entries) > 0:
+                        events = []
+                        for entry in f.entries:
+                            events.append(self._parse_feed_entry(entry))
+                        return [e for e in events if e is not None]
+
+            except Exception as e:
+                # print(f"Error fetching RSS {url}: {e}")
                 continue
         return []
 
@@ -84,9 +103,9 @@ class BlogRSSAgent(BaseWatcher):
         # Helper to parse feedparser entry
         published_time = None
         if hasattr(entry, 'published_parsed'):
-             published_time = datetime(*entry.published_parsed[:6])
+             published_time = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
         elif hasattr(entry, 'updated_parsed'):
-             published_time = datetime(*entry.updated_parsed[:6])
+             published_time = datetime(*entry.updated_parsed[:6], tzinfo=timezone.utc)
         
         if not published_time:
             return None
@@ -145,6 +164,9 @@ class BlogRSSAgent(BaseWatcher):
                         dt = datetime.fromisoformat(lastmod.replace('Z', '+00:00'))
                     else:
                         dt = datetime.fromisoformat(lastmod)
+                    
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
                 except ValueError:
                     continue
                     
@@ -184,7 +206,12 @@ class BlogRSSAgent(BaseWatcher):
             articles = soup.find_all('article')
             if not articles:
                  # Check for common blog patterns
-                 articles = soup.find_all('div', class_=lambda x: x and 'post' in x)
+                 # expanded to include 'entry', 'item', and role='article'
+                 articles = soup.find_all('div', class_=lambda x: x and any(c in x for c in ['post', 'entry', 'item', 'article']))
+            
+            if not articles:
+                 # Try finding elements with role="article"
+                 articles = soup.find_all(attrs={"role": "article"})
             
             if not articles:
                 # Fallback: Look for <a> tags
@@ -211,11 +238,14 @@ class BlogRSSAgent(BaseWatcher):
                 
                 # Extract Date logic is hard in generic HTML.
                 # Try <time> tag
-                dt = datetime.utcnow() # Default to now if not found? Risk of dupes.
+                dt = datetime.now(timezone.utc) # Default to now if not found? Risk of dupes.
                 time_tag = article.find('time')
                 if time_tag and time_tag.get('datetime'):
                     try:
-                        dt = datetime.fromisoformat(time_tag.get('datetime').replace('Z', '+00:00'))
+                        dt_str = time_tag.get('datetime').replace('Z', '+00:00')
+                        dt = datetime.fromisoformat(dt_str)
+                        if dt.tzinfo is None:
+                            dt = dt.replace(tzinfo=timezone.utc)
                     except: pass
                 
                 if self.last_seen_cursor and dt <= self.last_seen_cursor:
