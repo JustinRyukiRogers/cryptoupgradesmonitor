@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Upgrades Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <h1>Crypto Upgrades <span class="gradient-text">Monitor</span></h1>
+            </div>
+            <p class="subtitle">Real-time intelligence on protocol upgrades and economic changes</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="filter-group">
+                    <label for="protocol-filter">Protocol Filter</label>
+                    <div class="select-wrapper">
+                        <select id="protocol-filter">
+                            <option value="all">All Protocols</option>
+                            <!-- Options injected via JS -->
+                        </select>
+                    </div>
+                </div>
+                <div class="search-group">
+                    <label for="search-input">Search Updates</label>
+                    <input type="text" id="search-input" placeholder="Search headlines...">
+                </div>
+            </section>
+
+            <section class="feed-container">
+                <div id="loading" class="loading-spinner"></div>
+                <div id="feed" class="feed">
+                    <!-- Cards injected via JS -->
+                </div>
+                <div id="empty-state" class="empty-state hidden">
+                    <p>No upgrades found matching your criteria.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

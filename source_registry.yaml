@@ -1,34 +1,27 @@
 projects:
   ethereum:
     networks:
-      - "ethereum"
+    - ethereum
     x_accounts:
-      - "@ethereum"
-      - "@TimBeiko"
+    - '@ethereum'
+    - '@TimBeiko'
     blogs:
-      - "blog.ethereum.org"
-    github_orgs:
-      - "ethereum"
+    - blog.ethereum.org
     governance:
-      - "https://blog.ethereum.org/#"
-
+    - https://blog.ethereum.org/#
   uniswap:
     networks:
-      - "ethereum"
+    - ethereum
     x_accounts:
-      - "@Uniswap"
-      - "@UniswapFND"
+    - '@Uniswap'
+    - '@UniswapFND'
     blogs:
-      - "https://blog.uniswap.org/"
-    github_orgs:
-      - "Uniswap"
-  
+    - https://blog.uniswap.org/
   eigenlayer:
     networks:
-      - "ethereum"
+    - ethereum
     x_accounts:
-      - "@eigenlayer"
+    - '@eigenlayer'
     blogs:
-      - "blog.eigenlayer.xyz"
-    github_orgs:
-      - "Layr-Labs"
+    - blog.eigenlayer.xyz
+

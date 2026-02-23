@@ -49,10 +49,13 @@ class BlogRSSAgent(BaseWatcher):
 
         all_events.sort(key=lambda x: x.timestamp)
         
+        # Ingestion logic handles finding events newer than last_seen_cursor
         # Limit initial fetch to avoid overwhelming the pipeline
         if not self.last_seen_cursor:
-            print(f"  [Limit] Returning latest 20 events for initial poll")
-            return all_events[-20:]
+            # Sort and take latest N to avoid processing entire history on first run
+            if len(all_events) > 20:
+                print(f"  [Limit] Returning latest 20 events for initial poll")
+                all_events = all_events[-20:]
             
         return all_events
 
@@ -135,17 +138,8 @@ class BlogRSSAgent(BaseWatcher):
             soup = BeautifulSoup(resp.content, 'xml')
             urls = soup.find_all('url')
             
-            # Optimization: If no cursor, only check recent 5 URLs to avoid fetching metadata for all history
-            if not self.last_seen_cursor:
-                # Sitemap URLs are often ordered? XML order isn't guaranteed but usually chronological or reverse.
-                # Let's verify. Often sitemaps are comprehensive.
-                # We can't easily know order without parsing.
-                # But typically main sitemap has recent at bottom or top.
-                # Let's take last 10 and first 10? Or just slice properly if we assume standard appended sitemap.
-                # Safer to just take the LAST 10 (often newest) if the list is huge.
-                if len(urls) > 10:
-                    urls = urls[-10:]
-
+            # We will process all sitemap URLs and rely on the sorting and limit in `poll()`
+            # to return the correct top 20 latest events.
             events = []
             for url_tag in urls:
                 loc = url_tag.find('loc').text if url_tag.find('loc') else None
@@ -283,14 +277,51 @@ class BlogRSSAgent(BaseWatcher):
             
             text = f"{title}: {desc}"
             
+            # Extract true published timestamp
+            published_time = timestamp
+            
+            # First try regex on ALL body text to find the earliest mentioned date
+            import re
+            body_text = soup.get_text() 
+            # We want to find all dates and take the earliest one that makes sense
+            matches = re.finditer(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2}, \d{4}', body_text)
+            
+            found_dates = []
+            for match in matches:
+                try:
+                    dt = datetime.strptime(match.group(0).replace("Sept", "Sep")[:12]+match.group(0)[-5:], '%b %d, %Y').replace(tzinfo=timezone.utc)
+                    found_dates.append(dt)
+                except:
+                    try:
+                        dt = datetime.strptime(match.group(0), '%B %d, %Y').replace(tzinfo=timezone.utc)
+                        found_dates.append(dt)
+                    except: pass
+            
+            # If we found dates, take the very first one (which corresponds to the article header before the body)
+            if found_dates:
+                published_time = found_dates[0]
+            
+            # Fallback to metadata ONLY if regex found absolutely nothing
+            if published_time == timestamp:
+                meta_date = soup.find('meta', attrs={'property': 'article:published_time'})
+                if meta_date:
+                    try:
+                        dt_str = meta_date.get('content', '').replace('Z', '+00:00')
+                        dt = datetime.fromisoformat(dt_str)
+                        if dt.tzinfo is None:
+                            dt = dt.replace(tzinfo=timezone.utc)
+                        published_time = dt
+                    except: pass
+
             return RawEvent(
                 project=self.project_name,
                 source_type=SourceType.BLOG,
                 author="unknown",
                 text=text,
                 url=url,
-                timestamp=timestamp,
+                timestamp=published_time,
                 raw_data={"scraped": True}
             )
-        except:
+        except Exception as e:
+            print(f"Error fetching metadata for {url}: {e}")
             return None
