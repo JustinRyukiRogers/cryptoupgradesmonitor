@@ -64,6 +64,8 @@ class Evidence(BaseModel):
 class UpgradeConfirmation(BaseModel):
     is_confirmed: bool
     confidence: float = Field(..., ge=0.0, le=1.0)
+    status_detected: Optional[str] = None
+    supporting_evidence: Optional[str] = None
     evidence: List[Evidence]
     reasoning: str
 

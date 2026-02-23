@@ -82,23 +82,30 @@ class LLMVerificationAgent(GeminiAgent):
         context_text = "\n\n".join([f"Source ({e.source_type.value}): {e.text} (URL: {e.url})" for e in events])
         
         prompt = f"""
-        Analyze the following evidence regarding a potential crypto upgrade.
-        Determine if the upgrade is explicitly CONFIRMED as DEPLOYED/LIVE on Mainnet, or if it is just a PROPOSAL/PLANNED.
-        
-        Calculate a confidence score (0.0 to 1.0) that this is a COMPLETED UPGRADE event.
-        - 1.0 = "Now live on mainnet", "Succesfully executed", "Activated at block X"
-        - 0.8 = "Scheduled for tomorrow", "Approved by governance"
-        - 0.5 = "Proposed", "Voting now"
-        - 0.1 = Rumor / Discussion
+        Analyze the provided evidence to determine if a specific cryptocurrency upgrade has been successfully deployed to MAINNET.
+
+        ### Verification Protocol:
+        1. **Check Environment:** Is this discussing Mainnet, Testnet (Sepolia, Goerli, etc.), or a Devnet?
+        2. **Check Status:** Look for "Success" markers (e.g., "Activated," "Live," "Height reached") vs. "Intent" markers (e.g., "Proposed," "Upcoming," "Roadmap").
+        3. **Look for Anchors:** Identify specific block numbers, transaction hashes, or official protocol announcements.
+
+        ### Scoring Rubric:
+        - **1.0 (Confirmed):** Explicitly live on Mainnet. Phrases: "Successfully deployed," "Post-upgrade report," "Now active at block X."
+        - **0.7 (Imminent/Certain):** Governance passed and scheduled, but no confirmation of execution yet.
+        - **0.4 (In Progress):** Voting is currently open or it is live on TESTNET only.
+        - **0.1 (Speculative):** Proposals, forum discussions, or roadmap mentions.
+        - **0.0 (Irrelevant):** The text does not mention an upgrade.
 
         Evidence:
         {context_text}
 
         Return JSON:
         {{
-            "is_confirmed": bool,
+            "is_confirmed": bool, // ONLY true if score is 1.0
             "confidence": float,
-            "reasoning": "explanation"
+            "status_detected": "string", // e.g., "Mainnet Live", "Testnet Only", "Proposal"
+            "supporting_evidence": "quote the specific line confirming status",
+            "reasoning": "brief explanation"
         }}
         """
         
@@ -112,6 +119,8 @@ class LLMVerificationAgent(GeminiAgent):
         return UpgradeConfirmation(
             is_confirmed=data.get("is_confirmed", False),
             confidence=float(data.get("confidence", 0.0)),
+            status_detected=data.get("status_detected"),
+            supporting_evidence=data.get("supporting_evidence"),
             evidence=evidence_list,
             reasoning=data.get("reasoning", "No reasoning provided by LLM")
         )

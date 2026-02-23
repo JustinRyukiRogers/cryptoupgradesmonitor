@@ -137,7 +137,7 @@ def main():
                 # Verification
                 confirmation = verification_agent.verify(cluster)
                 
-                if confirmation.confidence < 0.4:
+                if confirmation.confidence < 0.25:
                     print(f"Skipping low confidence candidate for {project} (Score: {confirmation.confidence}) based on {len(cluster)} events")
                     print(f"Reasoning: {confirmation.reasoning}")
                     continue
