@@ -50,7 +50,8 @@ class LLMRelevanceAgent(GeminiAgent):
 
         prompt = f"""
         Analyze the following text from a crypto project source ({event.source_type.value}).
-        Determine if it impacts the EXISTENCE or STRENGTH of a Token Functionality Subtype.
+        Determine if it explicitly impacts the EXISTENCE or STRENGTH of a **Tokenized Right**. 
+        The article MUST describe a change to a cryptographically or socially enforceable right granted to the token holder.
         
         CRITICAL NEGATIVE CONSTRAINTS:
         - Do NOT classify general market news, price discussions, or vague marketing as relevant.
@@ -61,53 +62,55 @@ class LLMRelevanceAgent(GeminiAgent):
         Use the following exact Subtype definitions to evaluate the text:
 
         **SERVICE PROVISION (SV-*)**
-        SV-01 Sequencing/Execution: Right to execute state transitions/ordering.
-        SV-02 Data Availability: Right to make payload available under guarantees.
-        SV-03 Off-Chain Computation: Verifiable off-chain compute attested on-chain.
-        SV-04 Crypto Proofs: Generate/verify ZK/validity proofs.
-        SV-05 Oracle: Emit verifiable statements as truth.
-        SV-06 Identity: Issue verifiable identity claims.
-        SV-07 Indexing: Supply on-demand data access.
-        SV-08 Storage: Long-term storage capacity allocation.
-        SV-09 Interoperability Relay: Route messages/assets across domains.
-        SV-10 Confidentiality Relay: Route data preserving privacy.
-        SV-11 Physical Infrastructure (DePIN): Operate verifiable physical hardware.
-        SV-12 Dispute Resolution: Adjudicate disputes.
-        SV-13 State Attestation: Attest to block/state validity (e.g. standard PoS).
+        SV-01 Sequencing/Execution: Right to execute deterministic state transitions and decide transaction ordering.
+        SV-02 Data Availability: Right to make transaction data payload available under correctness guarantees.
+        SV-03 Off-Chain Computation: Right to execute verifiable off-chain computations attested on-chain.
+        SV-04 Crypto Proofs: Right to generate or verify cryptographic proofs validated on-chain.
+        SV-05 Oracle: Right to emit verifiable statements treated as canonical truth.
+        SV-06 Identity: Right to issue verifiable identity claims.
+        SV-07 Indexing: Right to supply on-demand access to already published data.
+        SV-08 Storage: Right to allocate long-term storage capacity backed by a cryptoeconomic promise.
+        SV-09 Interoperability Relay: Right to relay messages/assets between execution domains.
+        SV-10 Confidentiality Relay: Right to route or transform user data preserving end-to-end confidentiality.
+        SV-11 Physical Infrastructure: Right to operate verifiable physical hardware for coverage/data delivery.
+        SV-12 Dispute Resolution: Right to resolve disputes between protocol participants or external parties.
+        SV-13 State Attestation: Right to attest to validity/finality of blocks or state updates via signatures/votes.
 
         **GOVERNANCE (G-*)** *(Scales: None / Signal / Partial / Unilateral)*
-        G-01 Economic: Change fees, emissions, slashing.
-        G-02 Technical: Codebase or architecture changes.
-        G-03 Meta: Change decision-making rules.
-        G-04 Treasury: Direct or burn on-chain treasury.
-        G-05 Actor Set: Appoint/remove validators or councils.
-        G-06 Product: Launch/retire markets or services.
+        G-01 Economic: Right to amend monetary flows, fees, issuance, and slashing rules.
+        G-02 Technical: Right to approve or implement codebase, execution, or architecture changes.
+        G-03 Meta: Right to modify rules governing decision-making procedures.
+        G-04 Treasury: Right to direct, invest, or burn on-chain treasury assets.
+        G-05 Actor Set: Right to appoint, remove, or re-weight privileged protocol actors.
+        G-06 Product: Right to approve, veto, or direct creation/retirement of products/markets.
+        G-07 Entity Disposition: Right to collectively liquidate/dispose of system assets for pro rata proceeds.
 
         **VALUE DISTRIBUTION (VD-*)** *(Scales: One-off / Discretionary / Algorithmic)*
-        VD-01 Direct Entitlement: Pro rata claim on surplus/revenue.
-        VD-02 Burn Entitlement: Permanent token removal.
-        VD-03 Buyback Entitlement: Redistribution of acquired tokens.
-        VD-04 Inflation Entitlement: Receive newly minted units (without service risk).
-        VD-05 Third-Party Rewards: Airdrops/rewards conditional on locking.
+        VD-01 Direct Entitlement: Right to claim pro rata distribution of protocol surplus or revenue.
+        VD-02 Burn Entitlement: Right to benefit from permanent token removal mechanisms.
+        VD-03 Buyback Entitlement: Right to benefit from the redistribution of tokens acquired by the system.
+        VD-04 Inflation Entitlement: Right to receive newly minted units (not conditional on service provision).
+        VD-05 Third-Party Rewards: Right to receive third-party token distributions conditional on holding/locking.
 
         **MEMBERSHIP (M-*)**
-        M-01 Access Privilege: Gated venue/feature access.
-        M-02 Preferential Pricing: Lower fees based on holding.
-        M-03 Usage Quota Uplift: Higher usage allowance.
+        M-01 Access Privilege: Right to enter a venue, service, or feature available only to token holders.
+        M-02 Preferential Pricing: Right to receive lower fees or rebates by meeting a holding threshold.
+        M-03 Usage Quota Uplift: Right to enjoy a higher usage allowance before throttling/payment.
+        M-04 Reputation Credential: Right to carry a credential influencing voice weight or social status.
 
         **PAYMENTS (P-*)**
-        P-01 Native Resource Fee: Mandatory internal resource fee (gas).
-        P-02 General MoE: Widespread external payment acceptance.
-        P-03 Prepaid Credit: Redeem token for future closed-loop service.
-        P-04 Token-Settled Discount: Reduced price if paid in native token.
+        P-01 Native Resource Fee: Right to consume a scarce, system-enforced internal resource.
+        P-02 General Medium of Exchange: Right to discharge payment obligations inside and outside the system.
+        P-03 Prepaid Credit: Right to redeem token for specified future closed-loop services.
+        P-04 Token-Settled Discount: Right to reduced price only when settling fees in the native token.
 
-        **COLLATERAL & ASSET OWNERSHIP**
-        C-01 Financial Collateral: Pledged for DeFi leverage (Exogenous).
-        C-02 Stablecoin Reserve: Backing for a pegged currency.
-        C-03 Risk Underwriting: Stake absorbs protocol/contract risk for premium.
-        C-04 Performance Bond: Surety posted to guarantee delegated actor behavior.
-        AO-01 On-Chain Asset: Claim on contract-controlled liquidity/assets.
-        AO-02 Off-Chain Asset: Claim on RWA.
+        **COLLATERAL (C-*) & ASSET OWNERSHIP (AO-*)**
+        C-01 Financial Collateral: Right to pledge token as collateral for leveraged financial exposure.
+        C-02 Stablecoin Reserve: Right to deposit token as backing for a pegged or synthetic currency.
+        C-03 Risk Underwriting: Right to absorb protocol risk for premium income (forfeited on claims).
+        C-04 Performance Bond: Right to post surety guaranteeing delegated actor behavior (slashed on misbehavior).
+        AO-01 On-Chain Asset: Right to redeem or exchange a pro rata claim on contract-controlled liquidity.
+        AO-02 Off-Chain Asset: Right to transfer legal title or beneficial interest in a tokenised real-world asset.
 
         Ultimately, if it impacts one of these functionalities for a relevant token, then it's relevant.
         {token_context_str}
