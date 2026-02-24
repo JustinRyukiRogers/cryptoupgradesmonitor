@@ -2,6 +2,8 @@ projects:
   ethereum:
     networks:
     - ethereum
+    relevant_tokens:
+    - ETH
     x_accounts:
     - '@ethereum'
     - '@TimBeiko'
@@ -12,6 +14,8 @@ projects:
   uniswap:
     networks:
     - ethereum
+    relevant_tokens:
+    - UNI
     x_accounts:
     - '@Uniswap'
     - '@UniswapFND'
@@ -20,6 +24,8 @@ projects:
   eigenlayer:
     networks:
     - ethereum
+    relevant_tokens:
+    - EIGEN
     x_accounts:
     - '@eigenlayer'
     blogs:

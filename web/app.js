@@ -72,14 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     }
 
-    function formatStatus(status) {
-        if (!status) return 'Unknown';
-        return status.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-    }
+    // formatStatus removed 
 
-    function formatType(type) {
-        if (!type) return 'Unknown';
-        return type.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    function formatConfidenceLabel(score) {
+        if (score == null) return 'Unknown';
+        if (score >= 0.95) return 'Confirmed';
+        if (score >= 0.7) return 'Imminent/Certain';
+        if (score >= 0.4) return 'In Progress';
+        if (score >= 0.2) return 'Speculative';
+        return 'Irrelevant';
     }
 
     // Render feed
@@ -104,9 +105,36 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'card';
 
             const timestampStr = formatTimeAgo(upgrade.timestamp);
-            const statusClass = (upgrade.status || 'unknown').toLowerCase();
-            const confidence = upgrade.confidence != null ? (upgrade.confidence * 100).toFixed(0) : '0';
+            const confidenceLabel = formatConfidenceLabel(upgrade.confidence);
+            const statusClass = confidenceLabel.toLowerCase().replace(/[\/\s]+/g, '-');
             const reasoning = upgrade.reasoning ? `<div class="card-body">${upgrade.reasoning}</div>` : '';
+
+            let subtypesHtml = '';
+            if (upgrade.affected_subtypes && upgrade.affected_subtypes.length > 0) {
+                subtypesHtml = '<div class="subtypes-container">';
+                upgrade.affected_subtypes.forEach(st => {
+                    const impactClass = st.impact_type ? st.impact_type.toLowerCase().trim().replace(/\s+/g, '-') : 'unknown';
+                    const confidenceHtml = st.confidence !== undefined
+                        ? `<span class="subtype-confidence" title="Agent Confidence: ${st.confidence * 100}%">${Math.round(st.confidence * 100)}%</span>`
+                        : '';
+                    const tokenHtml = st.token_context
+                        ? `<span class="subtype-token">${st.token_context}</span>`
+                        : '';
+
+                    subtypesHtml += `
+                        <div class="subtype-card">
+                            <div class="subtype-badge">
+                                <span class="subtype-code">${st.subtype_code}</span>
+                                <span class="subtype-impact impact-${impactClass}">${st.impact_type}</span>
+                                ${confidenceHtml}
+                                ${tokenHtml}
+                            </div>
+                            <div class="subtype-reason">${st.reason}</div>
+                        </div>
+                    `;
+                });
+                subtypesHtml += '</div>';
+            }
 
             card.innerHTML = `
                 <div class="card-header">
@@ -117,19 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     </span>
                 </div>
                 <h2 class="card-title">${upgrade.headline}</h2>
+                ${subtypesHtml}
                 ${reasoning}
                 <div class="card-meta">
                     <div class="meta-item">
                         <span class="status-indicator status-${statusClass}"></span>
-                        <span>${formatStatus(upgrade.status)}</span>
-                    </div>
-                    <div class="meta-item" title="Upgrade Type">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                        <span>${formatType(upgrade.upgrade_type)}</span>
-                    </div>
-                    <div class="meta-item" title="Agent Confidence">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        <span>Conf: ${confidence}%</span>
+                        <span>${confidenceLabel}</span>
                     </div>
                 </div>
             `;

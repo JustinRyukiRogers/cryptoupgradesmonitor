@@ -1,5 +1,5 @@
 from typing import List
-from src.models import RawEvent, RelevanceSignal
+from src.models import RawEvent, RelevanceSignal, AffectedSubtype
 
 class RelevanceClassifierAgent:
     def __init__(self):
@@ -21,14 +21,13 @@ class RelevanceClassifierAgent:
         if event.project in ["ethereum", "uniswap", "eigenlayer"]:
              is_crypto = True
 
-        signals = []
-        if is_crypto: signals.append("crypto_keyword")
-        if is_economic: signals.append("economic_keyword")
-        if is_upgrade: signals.append("upgrade_keyword")
+        affected_subtypes = []
+        if is_economic:
+            affected_subtypes.append(AffectedSubtype(subtype_code="G-01", impact_type="Creation", reason="Heuristic: Economic keyword matched"))
+        if is_upgrade:
+            affected_subtypes.append(AffectedSubtype(subtype_code="G-02", impact_type="Creation", reason="Heuristic: Upgrade keyword matched"))
 
         return RelevanceSignal(
-            is_crypto=is_crypto,
-            is_economic=is_economic,
-            is_upgrade_related=is_upgrade,
-            signals=signals
+            is_relevant=(is_crypto and (is_economic or is_upgrade)),
+            affected_subtypes=affected_subtypes
         )

@@ -17,17 +17,11 @@ class UpgradeStatus(str, Enum):
     DEPLOYED_MAINNET = "deployed_mainnet"
     REJECTED = "rejected"
 
-class UpgradeType(str, Enum):
-    FEE_CHANGE = "fee_change"
-    STAKING_SLASHING = "staking_slash_activation"
-    EMISSIONS_CHANGE = "emissions_change"
-    GOVERNANCE_EXECUTION = "governance_execution"
-    OTHER_ECONOMIC = "other_economic"
-
 # --- Source Registry Models ---
 
 class ProjectConfig(BaseModel):
     networks: List[str]
+    relevant_tokens: List[str] = Field(default_factory=list)
     x_accounts: List[str] = Field(default_factory=list)
     blogs: List[str] = Field(default_factory=list)
     github_orgs: List[str] = Field(default_factory=list)
@@ -50,11 +44,16 @@ class RawEvent(BaseModel):
 
 # --- Analysis Layer Models ---
 
+class AffectedSubtype(BaseModel):
+    subtype_code: str
+    impact_type: str
+    reason: str
+    confidence: float = Field(default=1.0)
+    token_context: str = Field(default="")
+
 class RelevanceSignal(BaseModel):
-    is_crypto: bool
-    is_economic: bool
-    is_upgrade_related: bool
-    signals: List[str]
+    is_relevant: bool
+    affected_subtypes: List[AffectedSubtype] = Field(default_factory=list)
 
 class Evidence(BaseModel):
     type: str # "x", "github_release", "blog_post", "governance_tx"
@@ -76,10 +75,10 @@ class CanonicalUpgrade(BaseModel):
     headline: str
     project: str
     network: str
-    upgrade_type: UpgradeType
     status: UpgradeStatus
     primary_source: str
     supporting_sources: List[str]
     timestamp: datetime
     confidence: float
     reasoning: str
+    affected_subtypes: List[AffectedSubtype] = Field(default_factory=list)

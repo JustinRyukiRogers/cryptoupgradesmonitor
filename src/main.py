@@ -4,6 +4,7 @@ import time
 from datetime import datetime, timedelta
 from datetime import datetime
 from dotenv import load_dotenv
+from typing import Dict, List, Any
 
 load_dotenv()
 
@@ -92,13 +93,18 @@ def main():
 
         # 2. Filtering & Analysis
         project_events: Dict[str, List[RawEvent]] = {}
+        event_subtypes: Dict[str, List[Any]] = {}
         for event in all_events:
             try:
                 # Check relevance
-                signals = relevance_agent.classify(event)
-                if not signals.is_upgrade_related and not signals.is_economic:
+                project_cfg = registry.projects.get(event.project)
+                signals = relevance_agent.classify(event, project_config=project_cfg)
+                if not signals.is_relevant:
+                    print(f"[{event.project}] Event dropped by relevance agent (No direct token functionality impact found): {event.url}")
                     continue
                 
+                event_subtypes[str(event.event_id)] = signals.affected_subtypes
+
                 if event.project not in project_events:
                     project_events[event.project] = []
                 project_events[event.project].append(event)
@@ -137,7 +143,7 @@ def main():
                 # Verification
                 confirmation = verification_agent.verify(cluster)
                 
-                if confirmation.confidence < 0.25:
+                if confirmation.confidence < 0.1:
                     print(f"Skipping low confidence candidate for {project} (Score: {confirmation.confidence}) based on {len(cluster)} events")
                     print(f"Reasoning: {confirmation.reasoning}")
                     continue
@@ -147,7 +153,7 @@ def main():
                 final_status = statuses[0] 
                 
                 # Canonicalization
-                canonical = canonicalizer.canonicalize(cluster, confirmation, final_status)
+                canonical = canonicalizer.canonicalize(cluster, confirmation, final_status, event_subtypes)
                 
                 print(f"\n[NEW UPGRADE DETECTED] {project.upper()}")
                 print(f"Headline: {canonical.headline}")

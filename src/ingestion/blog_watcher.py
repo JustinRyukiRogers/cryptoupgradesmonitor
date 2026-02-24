@@ -116,11 +116,22 @@ class BlogRSSAgent(BaseWatcher):
         if self.last_seen_cursor and published_time <= self.last_seen_cursor:
             return None
 
+        from bs4 import BeautifulSoup
+        
+        content = ""
+        if 'content' in entry and len(entry.content) > 0:
+            content = entry.content[0].value
+        else:
+            content = entry.get('summary', '')
+            
+        content_text = BeautifulSoup(content, 'html.parser').get_text() if content else ""
+        content_clean = " ".join(content_text.split())[:4000]
+
         return RawEvent(
             project=self.project_name,
             source_type=SourceType.BLOG,
             author=entry.get('author', 'unknown'),
-            text=f"{entry.get('title', '')}: {entry.get('summary', '')}",
+            text=f"{entry.get('title', '')}\n\n{content_clean}",
             url=entry.get('link', ''),
             timestamp=published_time,
             raw_data=dict(entry)
@@ -131,7 +142,7 @@ class BlogRSSAgent(BaseWatcher):
         sitemap_url = f"{base.rstrip('/')}/sitemap.xml"
         
         try:
-            resp = requests.get(sitemap_url, timeout=10)
+            resp = requests.get(sitemap_url, timeout=10, headers={"User-Agent": "CryptoUpgradeMonitor/1.0"})
             if resp.status_code != 200:
                 return []
             
@@ -275,14 +286,15 @@ class BlogRSSAgent(BaseWatcher):
             if meta_desc:
                 desc = meta_desc.get('content', '')
             
-            text = f"{title}: {desc}"
-            
             # Extract true published timestamp
             published_time = timestamp
             
             # First try regex on ALL body text to find the earliest mentioned date
             import re
-            body_text = soup.get_text() 
+            body_text = soup.get_text()
+            body_text_clean = " ".join(body_text.split())
+            text = f"{title}: {desc}\n\n{body_text_clean[:4000]}"
+            
             # We want to find all dates and take the earliest one that makes sense
             matches = re.finditer(r'(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* \d{1,2}, \d{4}', body_text)
             

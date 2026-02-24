@@ -1,0 +1,66 @@
+Polling blog: https://blog.uniswap.org/
+  RSS failed or empty. Trying Sitemap...
+  Found 158 events via Sitemap
+  [Limit] Returning latest 20 events for initial poll
+Found 20 events:
+URL: https://blog.uniswap.org/what-is-slippage-crypto
+Text: What is Slippage?: Slippage is the difference between the price you expect and the price you get when swapping tokens. Learn why it happens and how to manage it.
+---
+URL: https://blog.uniswap.org/how-liquidity-provision-in-defi-works
+Text: Understanding Liquidity Provision in DeFi: Liquidity pools are the backbone of DeFi. Here’s what to know before you provide liquidity (LP) onchain.
+---
+URL: https://blog.uniswap.org/the-compact-v1
+Text: Introducing The Compact: The Compact v1 is an ownerless ERC-6909 contract for reusable resource locks that enables tokens to be credibly committed in exchange for performing actions across chains.
+---
+URL: https://blog.uniswap.org/maximal-extractable-value-mev
+Text: What is Maximal Extractable Value (MEV)?: Worried about MEV? Understand how it works and how it can affect your swaps.
+---
+URL: https://blog.uniswap.org/guidestar-joins-uniswap-labs
+Text: Guidestar Joins Uniswap Labs: We’re excited to share that Uniswap Labs has acquired Guidestar – a team that’s been building new AMM and routing technology in stealth for the past two years.
+---
+URL: https://blog.uniswap.org/solana-now-live
+Text: Solana is Now Live on the Uniswap Web App: You can connect your Solana wallet and swap Solana tokens directly from the Uniswap Web App alongside Ethereum and 13+ other networks.
+---
+URL: https://blog.uniswap.org/how-dutch-auctions-deliver-better-swaps
+Text: How Dutch Auctions Deliver Better Swaps: Intents-based protocols are changing DeFi. Discover how Dutch auctions can deliver faster, more reliable onchain swap execution compared to batch-based models.
+---
+URL: https://blog.uniswap.org/mev-protection
+Text: How to Secure Your Swaps from MEV Attacks: Stop losing value to MEV. Discover tools and strategies to help protect your swaps from common MEV attacks.
+---
+URL: https://blog.uniswap.org/minimize-slippage-on-swaps
+Text: How to Minimize Slippage on Your Swaps: Learn how to adjust and optimize your slippage settings, avoid failed swaps, and improve execution.
+---
+URL: https://blog.uniswap.org/porto-by-anchorage-digital-case-study
+Text: Porto by Anchorage Digital Unlocks Institutional DeFi Access with the Uniswap Trading API: Anchorage Digital’s self-custody wallet Porto has integrated the Uniswap Trading API to bring secure, direct DeFi access to institutions.
+---
+URL: https://blog.uniswap.org/crypto-smart-wallets
+Text: Smarts Wallets Are Taking Over Onchain UX: Smart wallets unlock one-click swaps, gas abstraction, and all-around smoother onchain UX. Here’s why they’re shaping the future of DeFi.
+---
+URL: https://blog.uniswap.org/unification
+Text: UNIfication: Today, Uniswap Labs and the Uniswap Foundation are excited to make a joint governance proposal that turns on protocol fees and aligns incentives across the Uniswap ecosystem, positioning the Uniswap protocol to win as the default decentralized exchange for tokenized value.
+---
+URL: https://blog.uniswap.org/continuous-clearing-auctions
+Text: Continuous Clearing Auctions: Bootstrapping Liquidity on Uniswap v4: Today we’re excited to announce Continuous Clearing Auctions (CCA), a permissionless protocol that helps teams bootstrap liquidity on Uniswap v4 and find the market price for new and low-liquidity tokens.
+---
+URL: https://blog.uniswap.org/monad-mainnet-is-now-live-on-uniswap
+Text: Monad Mainnet is Now Live on Uniswap: Monad Mainnet is now live on the Uniswap protocol, Uniswap Wallet and Web App, and the Uniswap Trading API.
+---
+URL: https://blog.uniswap.org/revolut-onramp-now-live
+Text: Buy Crypto with Revolut in the Uniswap Web App and Wallet: Uniswap Labs is partnering with Revolut, Europe’s largest finance app, to offer a fast, seamless onramp in the Uniswap Web App and Uniswap Wallet.
+---
+URL: https://blog.uniswap.org/ledger-case-study
+Text: Ledger Unlocks Secure, Onchain Swaps with the Uniswap Trading API: Ledger uses the Uniswap Trading API to bring secure, permissionless swaps into Ledger Wallet, pairing self-custody with trusted onchain liquidity.
+---
+URL: https://blog.uniswap.org/uniswap-is-now-live-on-x-layer
+Text: Uniswap is Now Live on X Layer: Uniswap is now live on X Layer with support across the Uniswap Protocol, Web App, Wallet, and Trading API.
+---
+URL: https://blog.uniswap.org/token-auctions-are-coming-to-the-uniswap-web-app
+Text: Token Auctions are Coming to the Uniswap Web App: We’re bringing CCAs to the Uniswap Web App so users can easily discover auctions, place bids, and claim tokens directly from the interface. The Auctions tab will go live on the Explore page February 2nd and will show ongoing and upcoming CCAs.
+
+---
+URL: https://blog.uniswap.org/aztec-cca
+Text: How Aztec Raised $59M With 17,000 Bidders Using Uniswap’s CCA: Aztec is building the first decentralized, privacy-preserving L2 on Ethereum. For its token sale, the team chose Uniswap’s Continuous Clearing Auctions, a fully onchain mechanism for transparent token auctions.
+---
+URL: https://blog.uniswap.org/unlocking-defi-liquidity-for-buidl
+Text: Uniswap Labs and Securitize Partner to Unlock DeFi Liquidity for BlackRock’s BUIDL: Today, in partnership with Securitize, we’re excited to announce that BlackRock’s USD Institutional Digital Liquidity Fund (BUIDL) is available to trade via UniswapX.
+---
