@@ -164,6 +164,9 @@ def main():
                 # 4. Output
                 output_manager.save_upgrade(canonical)
 
+        # Write all discovered upgrades to disk in one batch
+        output_manager.flush()
+
         print("Cycle complete. Sleeping for 60s...")
         time.sleep(60)
 

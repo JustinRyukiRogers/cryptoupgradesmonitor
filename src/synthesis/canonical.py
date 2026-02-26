@@ -23,9 +23,13 @@ class UpgradeCanonicalizerAgent:
         supporting = [e.url for e in sorted_events if e.url != primary_source]
 
         # Construct Headline
-        # Use the text of the primary event, maybe truncated or summarized?
-        # MVP: Use first event's text.
-        headline = earliest_event.text[:100] + ("..." if len(earliest_event.text) > 100 else "")
+        # Text usually starts with "Title: Desc\n\n[Body]". We split by \n\n to isolate the title block
+        first_segment = earliest_event.text.split('\n\n')[0].strip()
+        
+        if len(first_segment) > 120:
+            headline = first_segment[:117] + "..."
+        else:
+            headline = first_segment
 
         # Aggregate affected subtypes
         aggregated_subtypes = []

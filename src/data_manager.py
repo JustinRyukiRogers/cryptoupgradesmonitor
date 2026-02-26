@@ -47,26 +47,25 @@ class StateManager:
 class OutputManager:
     def __init__(self):
         os.makedirs(DATA_DIR, exist_ok=True)
-        
-    def save_upgrade(self, upgrade: CanonicalUpgrade):
-        # Load existing
-        upgrades = []
+        self.upgrades = []
+        self.existing_ids = set()
+        self._load_upgrades()
+
+    def _load_upgrades(self):
         if os.path.exists(OUTPUT_FILE):
             try:
                 with open(OUTPUT_FILE, 'r') as f:
-                    data = json.load(f)
-                    # Convert raw dicts back if needed, or just append dicts
-                    upgrades = data
-            except:
-                upgrades = []
+                    self.upgrades = json.load(f)
+                for u in self.upgrades:
+                    u_id = u.get('id', f"{u.get('project')}_{u.get('headline')}")
+                    self.existing_ids.add(u_id)
+            except Exception as e:
+                print(f"Error loading existing upgardes: {e}")
+
+    def save_upgrade(self, upgrade: CanonicalUpgrade):
         
         # Check for duplicates by ID (generate ID from project+headline if not present)
         current_id = f"{upgrade.project}_{upgrade.headline}"
-        existing_ids = set()
-        for u in upgrades:
-            # Fallback for ID
-            u_id = u.get('id', f"{u.get('project')}_{u.get('headline')}")
-            existing_ids.add(u_id)
         
         # Serialize new upgrade to dict
         upgrade_dict = upgrade.model_dump()
@@ -78,16 +77,16 @@ class OutputManager:
             upgrade_dict['timestamp'] = upgrade_dict['timestamp'].isoformat()
         if isinstance(upgrade_dict.get('canonical_id'), UUID):
             upgrade_dict['canonical_id'] = str(upgrade_dict['canonical_id'])
-            
-        if current_id not in existing_ids:
-            upgrades.append(upgrade_dict)
-            
-            # Sort by timestamp descending
-            # upgrades.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+        if current_id not in self.existing_ids:
+            self.upgrades.append(upgrade_dict)
+            self.existing_ids.add(current_id)
 
-            try:
-                with open(OUTPUT_FILE, 'w') as f:
-                    json.dump(upgrades, f, indent=2)
-                print(f"Saved new upgrade to {OUTPUT_FILE}")
-            except Exception as e:
-                print(f"Error saving output: {e}")
+    def flush(self):
+        # Sort by timestamp descending
+        try:
+            self.upgrades.sort(key=lambda x: x.get('timestamp', ''), reverse=True)
+            with open(OUTPUT_FILE, 'w') as f:
+                json.dump(self.upgrades, f, indent=2)
+            print(f"Flushed {len(self.upgrades)} upgrades to {OUTPUT_FILE}")
+        except Exception as e:
+            print(f"Error saving output: {e}")

@@ -1,1 +1,837 @@
-{}
+[
+  {
+    "canonical_id": "8e062989-2cc6-4d51-996e-d9d7df52ffba",
+    "headline": "Tether Acknowledged by DOJ for Support in $61 Million Seizure Linked to Pig Butchering Fraud - Tether.io\n    : 25 Feb...",
+    "project": "tether",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://tether.io/news/tether-acknowledged-by-doj-for-support-in-61-million-seizure-linked-to-pig-butchering-fraud/",
+    "supporting_sources": [
+      "https://tether.io/news/tether-acknowledged-by-doj-for-support-in-61-million-seizure-linked-to-pig-butchering-fraud/ ",
+      "https://tether.io/news/tether-invests-in-whop-one-of-the-fastest-growing-internet-markets-to-power-stablecoin-payments-for-the-next-generation-of-the-internet-economy/",
+      "https://tether.io/news/tether-invests-in-whop-one-of-the-fastest-growing-internet-markets-to-power-stablecoin-payments-for-the-next-generation-of-the-internet-economy/ "
+    ],
+    "timestamp": "2026-02-25T00:00:00+00:00",
+    "confidence": 0.2,
+    "reasoning": "The provided text discusses Tether's investments in other platforms and integrations of their wallet infrastructure, indicating ongoing development but not a specific confirmed upgrade on Mainnet. It discusses plans and integrations rather than a completed deployment.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The text mentions Tether's cooperation with law enforcement in freezing illicit assets. \"Tether has played a pivotal role in high\u2011profile financial crime investigations, working closely with international agencies to track, freeze, and seize illicit funds.\" This suggests that while USDT can be used as a medium of exchange (P-02), it is also subject to oversight and potential seizure by authorities when linked to illicit activities, which impacts the strength of its function as a general medium of exchange since it is not censorship resistant.",
+        "confidence": 0.8,
+        "token_context": "USDT"
+      }
+    ],
+    "id": "tether_Tether Acknowledged by DOJ for Support in $61 Million Seizure Linked to Pig Butchering Fraud - Tether.io\n    : 25 Feb..."
+  },
+  {
+    "canonical_id": "4daa50b7-2537-4702-a294-92e5011ad048",
+    "headline": "Axelar Connects Hedera, Expanding the Gateway to Onchain Finance",
+    "project": "hedera",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://hedera.com/blog/axelar-connects-hedera-expanding-the-gateway-to-onchain-finance/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-24T17:00:00+00:00",
+    "confidence": 1.0,
+    "reasoning": "The article explicitly states that Axelar has integrated Hedera, implying a successful deployment to the mainnet. It highlights the accessibility of Hedera technology to developers and users on the Axelar network.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-09",
+        "impact_type": "Strength Change",
+        "reason": "The article states that \"Axelar has integrated Hedera, giving developers and users across onchain finance seamless access to Hedera technology, applications and liquidity through a single programmable interface. The connection enables secure cross-chain transfers and contract calls between Hedera and dozens of blockchains supported by Axelar...\" This quote shows that HBAR now has expanded interoperability capabilities via Axelar, increasing the token's utility by allowing it to be transferred and used across multiple blockchains.",
+        "confidence": 0.9,
+        "token_context": "HBAR"
+      }
+    ],
+    "id": "hedera_Axelar Connects Hedera, Expanding the Gateway to Onchain Finance"
+  },
+  {
+    "canonical_id": "0fa41d34-cdf2-4a8e-bbac-331b8e06b876",
+    "headline": "DeepBook Margin: Leverage, Insights, and What\u2019s Next",
+    "project": "sui",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.sui.io/deepbook-margin-builder-discussion/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-20T18:43:49+00:00",
+    "confidence": 0.4,
+    "reasoning": "The document discusses DeepBook Margin and its features on the Sui network. Although it describes the functionality and benefits, it doesn't explicitly confirm a successful deployment to MAINNET. The mention of builders integrating margin into their products suggests it is either on testnet or in progress.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "C-01",
+        "impact_type": "Creation",
+        "reason": "The text states, \"DeepBook Margin adds borrow/lend mechanics alongside Sui\u2019s native liquidity layer, enabling leveraged trading directly on DeepBook via shared margin pools.\" This creates the right to pledge SUI as collateral within these margin pools for leveraged trading, effectively creating financial collateral functionality for SUI.",
+        "confidence": 0.9,
+        "token_context": "SUI"
+      }
+    ],
+    "id": "sui_DeepBook Margin: Leverage, Insights, and What\u2019s Next"
+  },
+  {
+    "canonical_id": "b70524bb-7bd7-4cb0-9d66-aad60dea4c7c",
+    "headline": "Upcoming Celestia Upgrade: Hibiscus (V7)",
+    "project": "celestia",
+    "network": "ethereum",
+    "status": "approved_not_deployed",
+    "primary_source": "https://blog.celestia.org/upcoming-celestia-upgrade-hibiscus-v7/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-20T16:17:31+00:00",
+    "confidence": 0.7,
+    "reasoning": "The evidence indicates the Hibiscus (V7) upgrade is scheduled for Mainnet in mid-March but has not yet been confirmed as live. The score is 0.7 because the event is scheduled, but no confirmation of execution has been provided.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "G-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The text states: \"CIP-44: Adjust Validator Commission Bounds This CIP increases the maximum validator commission from 25% to 60% and raises the protocol-enforced minimum commission from 10% to 20% to allow validators to operate more sustainable businesses, following the reduction to protocol inflation made in the previous upgrade.\" This directly modifies parameters affecting monetary flows (validator commission), which is an economic governance right.",
+        "confidence": 1.0,
+        "token_context": "TIA"
+      },
+      {
+        "subtype_code": "SV-09",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"CIP-45 introduces a forwarding module that enables single-signature cross-chain token transfers via Hyperlane, eliminating the need for users to sign multiple transactions when routing tokens through Celestia to another chain.\" This enhances the right to relay messages/assets between execution domains (interoperability) by streamlining cross-chain transfers, thus affecting the strength of this right. It also says \"CIP-46 introduces a zero-knowledge proof-based Hyperlane Interchain Security Module (x/zkism) that currently uses Groth16 verification to enable trust-minimised cross-chain message verification, replacing reliance on trusted multisig validators.\" This improves the security of the interoperability relay.",
+        "confidence": 1.0,
+        "token_context": "TIA"
+      }
+    ],
+    "id": "celestia_Upcoming Celestia Upgrade: Hibiscus (V7)"
+  },
+  {
+    "canonical_id": "d75be339-10f8-4f7e-a0d3-edb2e689e7e1",
+    "headline": "Curve Best Yields & Key Metrics | Week 8, 2026",
+    "project": "curve",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://news.curve.finance/curve-best-yields-key-metrics-week-8-2026/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-19T15:11:08+00:00",
+    "confidence": 0.4,
+    "reasoning": "The provided document describes changes that the Curve DAO has pushed to strengthen the crvUSD peg, including interest rate parameter adjustments, creation of an emergency role for YB pools, and authorization for the emergency DAO to use up to $400k crvUSD from the treasury to protect the peg. This indicates that changes are being actively made and managed, and safety mechanisms are rolling out, which falls under the 'In Progress' status.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "G-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The article states: \"Interest rate parameters have been tweaked\" and \"scrvUSD max fee share increased from 50% to 80% to better incentivize holding crvUSD when minting rates are high\". These are explicit adjustments to parameters influencing monetary flows and fees associated with the crvUSD stablecoin, impacting the economic governance related to the CRV ecosystem, as CRV holders have governance power over the Curve protocol.",
+        "confidence": 0.9,
+        "token_context": "CRV"
+      },
+      {
+        "subtype_code": "G-02",
+        "impact_type": "Technical",
+        "reason": "The article states: \"An emergency role has been created for the YB pools, allowing the emergency DAO to adjust pool parameters in extreme conditions\". This describes a change to the protocol's codebase and execution, representing a technical change to the system impacting the governance rights, particularly for CRV holders who participate in the DAO and have the power to approve or implement these changes.",
+        "confidence": 0.8,
+        "token_context": "CRV"
+      },
+      {
+        "subtype_code": "G-04",
+        "impact_type": "Parameter Tweak",
+        "reason": "The article states: \"The emergency DAO can use up to $400k crvUSD from the treasury to protect the peg in extreme market conditions\". This describes a change to the protocol's ability to direct treasury assets to maintain the crvUSD peg impacting the governance rights of CRV holders who have the power to influence decisions regarding treasury allocation.",
+        "confidence": 0.8,
+        "token_context": "CRV"
+      }
+    ],
+    "id": "curve_Curve Best Yields & Key Metrics | Week 8, 2026"
+  },
+  {
+    "canonical_id": "d21e3587-642e-4afb-bbf4-de4180e10ed4",
+    "headline": "A verifiable cloud for the agentic era",
+    "project": "eigenlayer",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.eigencloud.xyz/a-verifiable-cloud-for-the-agentic-era/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-17T23:18:07+00:00",
+    "confidence": 0.4,
+    "reasoning": "The text mentions EigenDA achieving throughput milestones on testnet. This indicates progress, but only on the test network, not mainnet. Therefore, it is 'In Progress' with a score of 0.4.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-03",
+        "impact_type": "Strength Change",
+        "reason": "The text describes EigenCompute as reaching an \"AWS-like developer experience, but with crypto-grade trust: deploy apps, games, or agents like cloud software, with onchain verifiability and smart-contract bindings.\" This indicates an increase in the strength of the right to execute verifiable off-chain computations attested on-chain because it's implying it's now easier and more reliable.",
+        "confidence": 0.7,
+        "token_context": "EIGEN"
+      },
+      {
+        "subtype_code": "SV-04",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"EigenAI pioneered deterministic, verifiable inference for open-source models, offering an early glimpse of what it means to treat AI execution as something you can audit, not just interpret.\" This statement suggests an increase in the strength of the right to generate or verify cryptographic proofs validated on-chain, by enabling the verifiability of AI execution.",
+        "confidence": 0.7,
+        "token_context": "EIGEN"
+      },
+      {
+        "subtype_code": "SV-02",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"EigenDA pushed throughput milestones on testnet\u2014showing that verifiable data availability can live in the \u201cinternet scale\u201d regime.\" This statement suggests an increased strength in the right to make transaction data payload available under correctness guarantees. Throughput improvements on testnet means that the eventual mainnet will have increased throughout.",
+        "confidence": 0.7,
+        "token_context": "EIGEN"
+      },
+      {
+        "subtype_code": "G-02",
+        "impact_type": "Technical",
+        "reason": "The text states \"EigenLayer became protocol-complete with slashing and redistribution\u2014fulfilling the core promise of the original design.\" This implies a change to codebase, execution, or architecture, strengthening the technical underpinnings of the protocol and potentially influencing how token holders interact with it. The completion of the protocol influences future governance decisions about codebase modifications.",
+        "confidence": 0.6,
+        "token_context": "EIGEN"
+      }
+    ],
+    "id": "eigenlayer_A verifiable cloud for the agentic era"
+  },
+  {
+    "canonical_id": "85de79c0-e78d-4ca9-942f-b3b28915b0fa",
+    "headline": "Lido V3 & Kiln: Expanding Institutional Ethereum Staking with stVaults",
+    "project": "lido",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.lido.fi/lido-v3-kiln-expanding-institutional-ethereum-staking-with-stvaults/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-17T09:46:26+00:00",
+    "confidence": 0.2,
+    "reasoning": "The document discusses Lido V3 and stVaults, highlighting their features and benefits. It describes how Kiln operates as a node operator in Lido V3, enabling institutional ETH stakers to access liquidity. However, it does not confirm that Lido V3 is live on Mainnet; it only describes the functionality. Therefore, the confidence is speculative.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "M-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"stVaults allow ETH to remain staked on Kiln-operated validators while enabling optional stETH minting, removing the traditional trade-off between liquidity and operator selection.\" This implies stETH holders who stake through stVaults gain access to potentially higher-performing validators operated by Kiln, enhancing the value and utility of holding stETH as it provides access to a more performant staking service compared to traditional liquid staking models. This strengthens the 'Access Privilege' of stETH by providing access to superior staking infrastructure.",
+        "confidence": 0.8,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "VD-01",
+        "impact_type": "Strength Change",
+        "reason": "The text mentions that 'Kiln\u2019s consistently above-average validator performance, stVaults enable better risk-adjusted staking outcomes than pooled liquid staking models'. This implies stETH holders who stake via stVaults will receive a larger pro rata share of staking rewards than those staked using traditional liquid staking. This enhances the utility of stETH tokens since now stakers receive increased returns. ",
+        "confidence": 0.7,
+        "token_context": "stETH"
+      }
+    ],
+    "id": "lido_Lido V3 & Kiln: Expanding Institutional Ethereum Staking with stVaults"
+  },
+  {
+    "canonical_id": "97c2b25c-3bcd-4f95-9731-b42edeb8118a",
+    "headline": "eSui Dollar Now Live on Sui as DeepBook Becomes DeFi\u2019s Premier Destination for Passive & Active Rewards",
+    "project": "sui",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.sui.io/esui-dollar-suiusde-deepbook-margin/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-11T14:00:51+00:00",
+    "confidence": 1.0,
+    "reasoning": "The text explicitly states that eSui Dollar is 'now live on Sui Mainnet.'",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The text states, \"eSui Dollar becomes immediately usable across margin trading, lending, and other leveraged DeFi workflows.\" This indicates an expansion of the utility of assets within the Sui ecosystem, strengthening their function as a medium of exchange within the DeFi space on Sui.",
+        "confidence": 0.8,
+        "token_context": "SUI"
+      },
+      {
+        "subtype_code": "C-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states, \"eSui Dollar becomes immediately usable across margin trading, lending, and other leveraged DeFi workflows.\" This highlights the new capacity to utilize eSui Dollar (which interacts with SUI as part of the ecosystem) as collateral in leveraged financial scenarios via DeepBook Margin.",
+        "confidence": 0.8,
+        "token_context": "SUI"
+      }
+    ],
+    "id": "sui_eSui Dollar Now Live on Sui as DeepBook Becomes DeFi\u2019s Premier Destination for Passive & Active Rewards"
+  },
+  {
+    "canonical_id": "a2ebee4a-5134-4316-b987-239591a91596",
+    "headline": "Hedera and the x402 payment standard",
+    "project": "hedera",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://hedera.com/blog/hedera-and-the-x402-payment-standard/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-10T14:00:00+00:00",
+    "confidence": 0.2,
+    "reasoning": "The text introduces the x402 payment standard. It does not confirm it is live on mainnet. Mentions a proposal, which is speculative.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"Using the x402 standards, developers can create AI applications and agents that are able to make on-chain transactions This allows them to use digital currency (like stablecoins or HBAR) over the internet as easily as sending an HTTP request...\" This indicates that HBAR can be used more easily as a medium of exchange over the internet, thus increasing its utility.",
+        "confidence": 0.9,
+        "token_context": "HBAR"
+      },
+      {
+        "subtype_code": "P-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"Hedera\u2019s exact payment scheme uses partially signed transactions with a unique model where the facilitator pays the gas fees and submits transactions, as shown below.\" By introducing a system where facilitators pay the gas fees on behalf of users, it alters the way HBAR is used to pay for network resources. This changes the economic dynamics of using HBAR for transaction fees, a core utility of the token.",
+        "confidence": 0.8,
+        "token_context": "HBAR"
+      }
+    ],
+    "id": "hedera_Hedera and the x402 payment standard"
+  },
+  {
+    "canonical_id": "9b667da8-bd1f-4478-9efa-d304db903de9",
+    "headline": "Native USDC & CCTP are Coming to EDGE Chain | Circle: Native USDC and CCTP are coming soon to EDGE Chain. Learn what ...",
+    "project": "circle",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://www.circle.com/blog/native-usdc-and-cctp-are-coming-to-edge-chain-what-you-need-to-know",
+    "supporting_sources": [
+      "https://www.circle.com/blog/meet-the-winners-of-our-first-usdc-openclaw-hackathon----and-what-we-learned"
+    ],
+    "timestamp": "2026-02-10T00:00:00+00:00",
+    "confidence": 0.2,
+    "reasoning": "The provided text indicates that the deployment of native USDC and CCTP to EDGE Chain is planned for the future ('coming soon') but not yet live. This falls under the speculative category.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "\"With the upcoming launch of native USDC and CCTP, EDGE Chain will gain access to the world\u2019s largest regulated 1 stablecoin, and secure crosschain transfers with CCTP.\" This quote demonstrates a direct increase in the utility of USDC by expanding its usability and transferability to the EDGE Chain, thereby strengthening its function as a medium of exchange within that ecosystem.",
+        "confidence": 0.9,
+        "token_context": "USDC"
+      },
+      {
+        "subtype_code": "SV-09",
+        "impact_type": "Creation",
+        "reason": "\"With the upcoming launch of native USDC and CCTP, EDGE Chain will gain access to the world\u2019s largest regulated 1 stablecoin, and secure crosschain transfers with CCTP.\" This quote directly shows that the right to relay messages/assets between execution domains (Interoperability Relay) is being created for USDC, as CCTP enables secure cross-chain transfers of USDC to EDGE Chain.",
+        "confidence": 0.9,
+        "token_context": "USDC"
+      },
+      {
+        "subtype_code": "VD-01",
+        "impact_type": "Algorithmic",
+        "reason": "The text states, 'In total, $30,000 USDC has been allocated to be awarded across three tracks.' This indicates a direct, algorithmic distribution of USDC tokens as rewards to participants of the hackathon. Winning the hackathon entitles participants to a pro rata distribution of the allocated USDC.",
+        "confidence": 1.0,
+        "token_context": "USDC"
+      }
+    ],
+    "id": "circle_Native USDC & CCTP are Coming to EDGE Chain | Circle: Native USDC and CCTP are coming soon to EDGE Chain. Learn what ..."
+  },
+  {
+    "canonical_id": "398ab548-887b-45fd-a94a-e37b4e366ada",
+    "headline": "Lido V3 & Nansen: Transparent Ethereum Staking with stVaults",
+    "project": "lido",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.lido.fi/lido-v3-nansen-transparent-ethereum-staking-with-stvaults/",
+    "supporting_sources": [
+      "https://blog.lido.fi/the-case-for-staked-eth-in-corporate-eth-treasuries/"
+    ],
+    "timestamp": "2026-02-09T16:07:24+00:00",
+    "confidence": 0.2,
+    "reasoning": "Mentions of Lido V3 and stVaults are within the context of a roadmap and future plans, not a confirmed Mainnet deployment. It is speculative.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "AO-01",
+        "impact_type": "Creation",
+        "reason": "The text states \"Within this structure, the vault can mint stETH against staked ETH...\", which allows users staking ETH through Nansen's stVaults to receive stETH, representing a pro rata claim on contract-controlled liquidity. This directly impacts the utility of stETH.",
+        "confidence": 0.9,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "SV-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"The product provides users with direct exposure to a specific validator, enabling transparent, onchain attribution of staking performance while earning Ethereum staking rewards.\" By providing direct exposure and transparent attribution, the product enhances the user's ability to execute deterministic state transitions related to their staked ETH and rewards. This strengthens the user's right to participate in sequencing and execution through improved transparency and control over their staking.",
+        "confidence": 0.7,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "VD-01",
+        "impact_type": "Creation",
+        "reason": "The text states that \"When ETH is staked via the Lido protocol, the staker receives stETH immediately - a liquid token representing the staked ETH and any accrued rewards. Staking rewards begin accruing from day one.\" This means that by staking ETH through Lido, users gain the right to claim a pro rata distribution of protocol surplus or revenue (staking rewards) in the form of stETH, which represents staked ETH and accrued rewards.",
+        "confidence": 1.0,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The text mentions that \"stETH can be held, redeemed, used as collateral, or sold on secondary markets with deep liquidity.\" This highlights the utility of stETH as a general medium of exchange both within (collateral) and outside (sold on secondary markets) the Lido ecosystem, reinforcing its payment function.",
+        "confidence": 0.9,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "C-01",
+        "impact_type": "Strength Change",
+        "reason": "The article mentions that \"roughly $10 billion sits active as collateral across Aave, Morpho, and Maker.\" This indicates that stETH can be used as collateral in various DeFi platforms, strengthening its utility as financial collateral.",
+        "confidence": 0.9,
+        "token_context": "stETH"
+      }
+    ],
+    "id": "lido_Lido V3 & Nansen: Transparent Ethereum Staking with stVaults"
+  },
+  {
+    "canonical_id": "914e34b7-a947-4979-ad1a-bdc5fc515880",
+    "headline": "Dynamic Pricing on Arbitrum: What Just Changed",
+    "project": "arbitrum",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.arbitrum.io/dynamic-pricing-update-2026/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-05T19:32:03+00:00",
+    "confidence": 1.0,
+    "reasoning": "The text explicitly states that the ArbOS Dia upgrade was released on January 8, 2026, and upgraded Arbitrum One, implying it's live on Mainnet. The phrase \"live today\" further confirms its deployment status.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The text states: \"Dia also raised the minimum L2 base fee from 0.01 gwei to 0.02 gwei.\" This change directly impacts the \"Right to consume a scarce, system-enforced internal resource\" (P-01) because it increases the cost to execute transactions on the Arbitrum network, a resource paid for with ARB tokens. This change strengthens the utility of the native token for paying network fees.",
+        "confidence": 1.0,
+        "token_context": "ARB"
+      }
+    ],
+    "id": "arbitrum_Dynamic Pricing on Arbitrum: What Just Changed"
+  },
+  {
+    "canonical_id": "87de0736-92d5-40e0-b96a-213a5ec7fa3b",
+    "headline": "Stacks - What's Next for Stacks: Fireblocks, Messari Q4 Report, and the Bitcoin Staking Thesis: Fireblocks integrates...",
+    "project": "stacks",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://stacks.co/blog/whats-next-for-stacks-feb-2026",
+    "supporting_sources": [],
+    "timestamp": "2026-02-05T00:00:00+00:00",
+    "confidence": 0.2,
+    "reasoning": "The blog post discusses upcoming developments for Stacks, including self-custodial Bitcoin staking and Fireblocks integration. While it highlights onchain growth and institutional interest, it doesn't confirm the successful deployment of a specific upgrade to Mainnet. Mentions of 'upcoming' indicate future plans rather than confirmed deployments.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "VD-05",
+        "impact_type": "Creation",
+        "reason": "The text mentions 'self-custodial Bitcoin staking is expected to be the defining narrative for Stacks in 2026' and 'Dual Stacking, launched in Q4, already ranked among the top Bitcoin-native yield strategies.' This suggests the creation of a third-party reward (BTC yield) distribution conditional on holding/locking STX tokens.",
+        "confidence": 0.8,
+        "token_context": "STX"
+      },
+      {
+        "subtype_code": "C-01",
+        "impact_type": "Strength Change",
+        "reason": "The integration of Fireblocks gives '2,400+ institutional clients access to Bitcoin DeFi on Stacks.' This implies that STX can be used as financial collateral in a wider range of DeFi applications accessible to institutions, increasing its utility as collateral.",
+        "confidence": 0.7,
+        "token_context": "STX"
+      }
+    ],
+    "id": "stacks_Stacks - What's Next for Stacks: Fireblocks, Messari Q4 Report, and the Bitcoin Staking Thesis: Fireblocks integrates..."
+  },
+  {
+    "canonical_id": "031fb746-280b-4325-8fec-6e66cb32bfd0",
+    "headline": "OnchainDB: A Case Study in Celestia's \"Everything Markets\" Vision",
+    "project": "celestia",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.celestia.org/onchaindb-a-case-study-in-celestias-everything-markets-vision/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-03T14:55:43+00:00",
+    "confidence": 0.2,
+    "reasoning": "The text mentions a 'Fibre upgrade' targeting a future data throughput. It's a roadmap item or future intention, not a confirmation of a live upgrade on mainnet. Therefore, it's speculative.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-02",
+        "impact_type": "Strength Change",
+        "reason": "The text describes OnchainDB leveraging Celestia's data availability layer to store application data. Specifically, \"Celestia\u2019s data availability guarantees make it possible to verify that the data stored in OnchainDB is exactly what the writer posted, ensuring data integrity without requiring readers to trust OnchainDB\u2019s word for it.\" This strengthens the right to data availability because Celestia provides guarantees of data integrity, enabling trustless verification. TIA is staked to provide the data availability guarantees. This strengthens the utility of the token.",
+        "confidence": 0.8,
+        "token_context": "TIA"
+      },
+      {
+        "subtype_code": "P-01",
+        "impact_type": "Creation",
+        "reason": "The text introduces OnchainDB as a pay-per-query database, with \"native micropayment integration via x402.\" and states that \"Developers can create collections, store records, and query data\" all with payments. Celestia is used to ensure that \"the data stored in OnchainDB is exactly what the writer posted\". Thus, the native resource (data availability) requires a fee payment using TIA.",
+        "confidence": 0.8,
+        "token_context": "TIA"
+      }
+    ],
+    "id": "celestia_OnchainDB: A Case Study in Celestia's \"Everything Markets\" Vision"
+  },
+  {
+    "canonical_id": "8fc074cd-4177-494b-9a1a-6f7d118edfdb",
+    "headline": "Curve Monthly Recap January, 2026",
+    "project": "curve",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://news.curve.finance/curve-monthly-recap-january-2026/",
+    "supporting_sources": [],
+    "timestamp": "2026-02-02T16:27:01+00:00",
+    "confidence": 0.7,
+    "reasoning": "The text indicates that a vote has passed for a crvUSD monetary policy update. While the vote is confirmed, the actual execution and confirmation of the upgrade on mainnet are not explicitly stated in this document. Therefore, it is considered 'Imminent/Certain'.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "G-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The text states \"Curve DAO has voted in an update to crvUSD\u2019s monetary policy that smooths borrow rates for minting crvUSD.\" This explicitly describes a change to the monetary policy, which directly affects the economics (fees, issuance) of crvUSD, a component of the Curve ecosystem. While it does not directly affect CRV, the DAO governance over parameters affecting crvUSD rates is still relevant.",
+        "confidence": 0.9,
+        "token_context": "CRV"
+      }
+    ],
+    "id": "curve_Curve Monthly Recap January, 2026"
+  },
+  {
+    "canonical_id": "319731e5-3ed5-4962-9abc-0e5d7266a54f",
+    "headline": "Announcement: Ecosystem Expansion on JasmyChain\u200a\u2014\u200aThird-Party Project \u201cJasmy Swap\u201d Now Live",
+    "project": "jasmy",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://jasmy-global.medium.com/announcement-ecosystem-expansion-on-jasmychain-third-party-project-jasmy-swap-now-live-eb7d112462c9?source=rss-4adb818d8bed------2",
+    "supporting_sources": [],
+    "timestamp": "2026-02-02T11:13:17+00:00",
+    "confidence": 0.4,
+    "reasoning": "The text describes Jasmy Swap as operating on JasmyChain, but it's not explicitly confirmed to be live on Mainnet. The announcement focuses on its launch as a third-party project utilizing the JasmyChain infrastructure, more akin to an active project but on testnet initially or some other controlled environment.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"Expanded utility: The protocol is expected to broaden token use cases on JasmyChain.\" This suggests that the launch of Jasmy Swap, a decentralized exchange, will increase the general medium of exchange utility of JASMY by providing more opportunities to use JASMY for swaps and other transactions within the JasmyChain ecosystem.",
+        "confidence": 0.7,
+        "token_context": "JASMY"
+      }
+    ],
+    "id": "jasmy_Announcement: Ecosystem Expansion on JasmyChain\u200a\u2014\u200aThird-Party Project \u201cJasmy Swap\u201d Now Live"
+  },
+  {
+    "canonical_id": "3c391415-6576-42cf-bd58-3f6d87dc596d",
+    "headline": "Lido V3 & Pier Two x RockSolid: Expanding Institutional Ethereum Staking with stVaults",
+    "project": "lido",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.lido.fi/lido-v3-pier-two-x-rocksolid-expanding-institutional-ethereum-staking-with-stvaults/",
+    "supporting_sources": [
+      "https://blog.lido.fi/lido-v3-is-live-modular-infrastructure-for-a-new-paradigm-of-ethereum-staking/"
+    ],
+    "timestamp": "2026-01-30T13:40:47+00:00",
+    "confidence": 1.0,
+    "reasoning": "The blog post explicitly states that Lido V3 is live on Ethereum mainnet, confirming the successful deployment of the upgrade.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "M-01",
+        "impact_type": "Creation",
+        "reason": "The text describes the creation of 'RockSolid AutoPlus Looped ETH Vault, a Lido V3 stVault designed and managed by RockSolid to meet institutional demand for stronger liquidity provisioning and broader ETH utility.' and 'Institutional clients can deposit and withdraw ETH subject to Ethereum\u2019s entry and exit queues, while retaining the option to unlock stETH liquidity through Lido V3 when conditions allow\u2014providing flexibility without compromising staking integrity.' This provides a new access privilege for institutional stETH holders.",
+        "confidence": 0.9,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "P-03",
+        "impact_type": "Creation",
+        "reason": "The text mentions that 'Institutional clients can deposit and withdraw ETH subject to Ethereum\u2019s entry and exit queues, while retaining the option to unlock stETH liquidity through Lido V3 when conditions allow\u2014providing flexibility without compromising staking integrity.' This describes the ability to redeem stETH for a future service (access to liquidity) which is a form of prepaid credit.",
+        "confidence": 0.8,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "SV-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"Lido V3 is live on Ethereum mainnet, introducing stVaults: modular staking infrastructure for builders, powered by stETH.\" and \"With stVaults: Vault owners define the staking setup (operators, operating requirements, fee design, risk/reward choices). Staked deposits can mint stETH, keeping staking positions usable across DeFi even when the underlying validator configuration is bespoke.\" This indicates a change to the sequencing/execution rights because stVault owners have a new ability to define staking setups, and deposits can mint stETH, making staking positions usable. The modularity of stVaults increases the power/optionality for users of stETH.",
+        "confidence": 0.8,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "VD-04",
+        "impact_type": "Strength Change",
+        "reason": "The text states \"With stVaults: Vault owners define the staking setup (operators, operating requirements, fee design, risk/reward choices). Staked deposits can mint stETH, keeping staking positions usable across DeFi even when the underlying validator configuration is bespoke.\".  The right to receive newly minted stETH is strengthened because stVaults allows staked deposits to mint stETH, even when the underlying validator configuration is bespoke.  This increases the flexibility and control over the minting process.",
+        "confidence": 0.7,
+        "token_context": "stETH"
+      }
+    ],
+    "id": "lido_Lido V3 & Pier Two x RockSolid: Expanding Institutional Ethereum Staking with stVaults"
+  },
+  {
+    "canonical_id": "9c1e2e08-4d0a-4afb-b8bc-214222a70d1f",
+    "headline": "Token Auctions are Coming to the Uniswap Web App: We\u2019re bringing CCAs to the Uniswap Web App so users can easily disc...",
+    "project": "uniswap",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.uniswap.org/token-auctions-are-coming-to-the-uniswap-web-app",
+    "supporting_sources": [],
+    "timestamp": "2026-01-28T00:00:00+00:00",
+    "confidence": 0.4,
+    "reasoning": "The evidence states that the CCA protocol is live on Ethereum, Unichain, Arbitrum, and Base which suggests it is currently live on testnets, but not yet explicitly confirmed for mainnet. It is also going live on the Uniswap Web App, but there is no mention that this constitutes a successful MAINNET deployment. The score is 0.4 because it is live on various EVM chains.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "VD-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"We developed Continuous Clearing Auctions (CCA) as a permissionless protocol to help teams bootstrap liquidity on Uniswap v4 and find the market price for new and low-liquidity tokens. Now, we\u2019re bringing CCAs to the Uniswap Web App so users can easily discover auctions, place bids, and claim tokens directly from the interface.\" This indicates a new mechanism (CCA) for distributing tokens (potentially including UNI) to users, giving token holders a new way to potentially claim a distribution of protocol surplus or revenue via participation in these auctions on the Uniswap platform, thereby strengthening their right to direct entitlement.",
+        "confidence": 0.7,
+        "token_context": "UNI"
+      }
+    ],
+    "id": "uniswap_Token Auctions are Coming to the Uniswap Web App: We\u2019re bringing CCAs to the Uniswap Web App so users can easily disc..."
+  },
+  {
+    "canonical_id": "b4caa83a-84cb-41c9-8c88-c26c0f101e7a",
+    "headline": "Lido V3 & Obol: Multi-Operator Distributed Validators on Lido stVaults",
+    "project": "lido",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.lido.fi/lido-v3-obol-multi-operator-distributed-validators-on-lido-stvaults/",
+    "supporting_sources": [],
+    "timestamp": "2026-01-26T14:59:20+00:00",
+    "confidence": 0.4,
+    "reasoning": "The document mentions 'Lido V3 Testnet', suggesting the upgrade or related technology is only available on the test network, not Mainnet.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-01",
+        "impact_type": "Strength Change",
+        "reason": "The text describes a multi-operator DVT-powered stVault built on Lido V3. \"Obol runs multi-operator Distributed Validator (DV) clusters, where validator keys are created using a Distributed Key Generation (DKG) ceremony and key shares are distributed across multiple independent node operators. No single operator can act unilaterally with validator keys.\" This strengthens the sequencing/execution by distributing control over validator keys, which are required to execute state transitions.",
+        "confidence": 0.8,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "SV-02",
+        "impact_type": "Strength Change",
+        "reason": "The text says, \"Each node operator runs a diverse infrastructure stack (unique EL/CL clients) to minimize correlated failures and downtime. This ensures high resilience, diversity, and fault tolerance.\" By diversifying the client infrastructure across multiple node operators, the system enhances the resilience and fault tolerance, increasing the strength of the right to data availability, as the likelihood of data becoming unavailable due to a single point of failure is reduced.",
+        "confidence": 0.7,
+        "token_context": "stETH"
+      }
+    ],
+    "id": "lido_Lido V3 & Obol: Multi-Operator Distributed Validators on Lido stVaults"
+  },
+  {
+    "canonical_id": "e889f58a-022b-4a0e-845d-3e64dfa44339",
+    "headline": "Introducing Celestia Private Blockspace: confidential onchain finance",
+    "project": "celestia",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.celestia.org/introducing-celestia-private-blockspace-confidential-onchain-finance/",
+    "supporting_sources": [],
+    "timestamp": "2026-01-23T14:39:48+00:00",
+    "confidence": 0.4,
+    "reasoning": "The text discusses 'Celestia's Private Blockspace' and mentions a deployment called 'Hibachi', however, there's no explicit mention of Mainnet. Since Hibachi is referred to as a deployment, it is most likely on testnet, giving a confidence of 0.4.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-02",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"Networks publish encrypted state to Celestia, allowing anyone to verify data availability and protocol commitments without revealing the underlying contents.\" This strengthens the 'Data Availability' right (SV-02) by enabling verification of data availability even when the data is encrypted, enhancing the utility of TIA for use cases requiring confidentiality.",
+        "confidence": 0.9,
+        "token_context": "TIA"
+      }
+    ],
+    "id": "celestia_Introducing Celestia Private Blockspace: confidential onchain finance"
+  },
+  {
+    "canonical_id": "5753a283-9447-40d4-8fe0-dded98b71620",
+    "headline": "Curve Best Yields & Key Metrics | Week 4, 2026",
+    "project": "curve",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://news.curve.finance/curve-best-yields-key-metrics-week-4-2026/",
+    "supporting_sources": [
+      "https://news.curve.finance/smoothing-crvusd-borrow-rates/"
+    ],
+    "timestamp": "2026-01-22T12:23:32+00:00",
+    "confidence": 0.7,
+    "reasoning": "The evidence suggests a governance vote has passed for the crvUSD interest rate formula update, making it imminent. However, there's no explicit confirmation that the update is live on Mainnet. The article discusses the changes that will be implemented as a result of the vote.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "VD-01",
+        "impact_type": "Strength Change",
+        "reason": "The text shows the yields available for CRV in the CRV/crvUSD and CRV/sdCRV pools: \"Chain Market Asset Yield CRVcrvUSD CRV 11.3% CRVsdCRV CRV 11.0%\". Since the yields represent a distribution of protocol surplus or revenue to token holders who provide liquidity, changes in these yields impact the strength of the right to claim such distributions.",
+        "confidence": 0.7,
+        "token_context": "CRV"
+      },
+      {
+        "subtype_code": "VD-04",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"veCRV holders also received a higher distribution compared to the prior week. Metric Value Change CRV Circ. Supply 1.47B +0.2% veCRV Distribution $123k +9.2% CRV Emissions $901k (2.22M CRV) -1.0% Inflation Rate 4.931% -0.005%\". The distribution to veCRV holders is higher and the inflation rate is slightly decreased which affects the entitlement to newly minted units.",
+        "confidence": 0.8,
+        "token_context": "CRV"
+      },
+      {
+        "subtype_code": "G-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The text states, \"Curve DAO has voted in an update to crvUSD\u2019s monetary policy to introduce smoother and more predictable borrow rates.\" This explicitly mentions a governance vote affecting the monetary policy, which directly impacts \"monetary flows, fees, issuance, and slashing rules,\" related to crvUSD.",
+        "confidence": 1.0,
+        "token_context": "CRV"
+      }
+    ],
+    "id": "curve_Curve Best Yields & Key Metrics | Week 4, 2026"
+  },
+  {
+    "canonical_id": "539f3740-d509-49b2-991f-7905fef4ef81",
+    "headline": "Introducing Our New Crosschain Forwarding Service | Circle: Our new crosschain forwarding service enhances Circle\u2019s i...",
+    "project": "circle",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://www.circle.com/blog/introducing-our-new-crosschain-forwarding-service-now-integrated-into-cctp",
+    "supporting_sources": [
+      "https://www.circle.com/blog/tokenizing-real-world-assets-with-circle-contracts"
+    ],
+    "timestamp": "2026-01-22T00:00:00+00:00",
+    "confidence": 0.4,
+    "reasoning": "The first article explicitly states that the crosschain forwarding service is available on testnet, not mainnet. The second article doesn't mention any upgrade.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-09",
+        "impact_type": "Strength Change",
+        "reason": "The text states, \"Our new crosschain forwarding service enhances Circle\u2019s interop products by reducing operational cost and risk for developers, and improving UX with faster end-to-end speed.\" This indicates a direct enhancement to the right to relay messages/assets between execution domains for USDC, making it more efficient and less risky to transfer USDC across different blockchains, thus strengthening the interoperability service.",
+        "confidence": 0.9,
+        "token_context": "USDC"
+      },
+      {
+        "subtype_code": "AO-02",
+        "impact_type": "Creation",
+        "reason": "The article discusses \"Tokenizing real-world assets with Circle Contracts.\" and states that developers can \"integrate directly with Circle-issued assets such as USDC\". This implies the creation of a tokenized right where USDC can be used within smart contracts to represent or interact with real-world assets, effectively granting a right to transfer legal title or beneficial interest in a tokenised real-world asset using USDC.",
+        "confidence": 0.9,
+        "token_context": "USDC"
+      }
+    ],
+    "id": "circle_Introducing Our New Crosschain Forwarding Service | Circle: Our new crosschain forwarding service enhances Circle\u2019s i..."
+  },
+  {
+    "canonical_id": "2b749e31-0839-4caf-aa37-afbf095c8150",
+    "headline": "Japan-Origin Blockchain \u201cJasmyChain\u201d Completes Mainnet Migration",
+    "project": "jasmy",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://jasmy-global.medium.com/japan-origin-blockchain-jasmychain-completes-mainnet-migration-d74827c25790?source=rss-4adb818d8bed------2",
+    "supporting_sources": [],
+    "timestamp": "2026-01-17T08:11:06+00:00",
+    "confidence": 1.0,
+    "reasoning": "The provided text explicitly states that the JasmyChain mainnet migration is complete and production operations have begun. This indicates successful deployment to Mainnet.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "P-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states '$JASMY Adopted as Custom Gas Token. JasmyChain uses $JASMY as its gas currency, connecting $JASMY fee payments to network utility (transaction execution).' This means that JASMY is now required to pay for transaction fees on the JasmyChain, increasing its utility and strengthening its role as a native resource fee.",
+        "confidence": 1.0,
+        "token_context": "JASMY"
+      },
+      {
+        "subtype_code": "SV-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states 'JasmyChain uses $JASMY as its gas currency, connecting $JASMY fee payments to network utility (transaction execution)'. This indicates that JASMY is now used to pay for the right to execute deterministic state transitions on the JasmyChain.",
+        "confidence": 1.0,
+        "token_context": "JASMY"
+      }
+    ],
+    "id": "jasmy_Japan-Origin Blockchain \u201cJasmyChain\u201d Completes Mainnet Migration"
+  },
+  {
+    "canonical_id": "2f6fe9b5-f706-4629-ac04-a7a5a2f96f8b",
+    "headline": "Gateway: New Pre-Mint Address for USDC on Solana | Circle: Ahead of mainnet launch for Gateway on Solana, Circle has ...",
+    "project": "circle",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://www.circle.com/blog/gateway-new-pre-mint-address-for-usdc-on-solana",
+    "supporting_sources": [],
+    "timestamp": "2026-01-14T00:00:00+00:00",
+    "confidence": 0.7,
+    "reasoning": "The text states that the deployment of a new pre-mint address is 'ahead of mainnet launch', suggesting the launch is imminent but not yet confirmed.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-09",
+        "impact_type": "Strength Change",
+        "reason": "The blog post states, \"Ahead of mainnet launch for Gateway on Solana, Circle has deployed a new pre-mint address to enable Gateway to programmatically mint USDC on Solana.\" This deployment strengthens the 'Interoperability Relay' right by facilitating the movement of USDC between blockchains, specifically enabling a unified USDC balance through the Gateway.",
+        "confidence": 0.9,
+        "token_context": "USDC"
+      },
+      {
+        "subtype_code": "P-02",
+        "impact_type": "Strength Change",
+        "reason": "The blog post announces a new pre-mint address for USDC on Solana, stating \"Ahead of mainnet launch for Gateway on Solana, Circle has deployed a new pre-mint address to enable Gateway to programmatically mint USDC on Solana.\" This strengthens USDC's role as a 'General Medium of Exchange' on Solana by ensuring a supply of USDC is available for transactions upon the launch of Gateway on Solana.",
+        "confidence": 0.8,
+        "token_context": "USDC"
+      }
+    ],
+    "id": "circle_Gateway: New Pre-Mint Address for USDC on Solana | Circle: Ahead of mainnet launch for Gateway on Solana, Circle has ..."
+  },
+  {
+    "canonical_id": "f5c1a7d9-b822-48a3-aa82-7850b7f2d6e0",
+    "headline": "Introducing Fibre: 1Tb/s of blockspace",
+    "project": "celestia",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.celestia.org/introducing-fibre-1tb-s-of-blockspace/",
+    "supporting_sources": [],
+    "timestamp": "2026-01-13T15:13:28+00:00",
+    "confidence": 0.4,
+    "reasoning": "The evidence describes the introduction of Fibre Blockspace on Celestia L1, but it doesn't explicitly state that it has been successfully deployed to MAINNET. The description implies that it is running within the Celestia L1 environment, which could be interpreted as testnet during initial deployment. There is no confirmation that it is live and fully operational on the Mainnet. Since it is being run by Celestia validators, it is considered as in progress.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "SV-02",
+        "impact_type": "Strength Change",
+        "reason": "The introduction of Fibre Blockspace increases the data availability throughput. \"Celestia is introducing Fibre Blockspace, a new data availability protocol capable of sustaining 1Tb/s of blockspace across 500 nodes.\" This enhancement strengthens the data availability guarantees for users of Celestia.",
+        "confidence": 0.9,
+        "token_context": "TIA"
+      },
+      {
+        "subtype_code": "P-01",
+        "impact_type": "Strength Change",
+        "reason": "The Fibre protocol includes a fee payment made in TIA: \"The signatures along with blob commitment are then submitted on the Celestia L1, where the Fibre fee is paid.\" This strengthens the utility of TIA as it is explicitly required to utilize the Fibre service.",
+        "confidence": 0.9,
+        "token_context": "TIA"
+      }
+    ],
+    "id": "celestia_Introducing Fibre: 1Tb/s of blockspace"
+  },
+  {
+    "canonical_id": "befd24c2-3667-4ec7-b96d-39c152ce7052",
+    "headline": "Lido V3 & Northstake: Simplifying Institutional Ethereum Staking with stVaults",
+    "project": "lido",
+    "network": "ethereum",
+    "status": "proposal_only",
+    "primary_source": "https://blog.lido.fi/lido-v3-northstake-simplifying-institutional-ethereum-staking-with-stvaults/",
+    "supporting_sources": [],
+    "timestamp": "2026-01-12T14:46:45+00:00",
+    "confidence": 0.4,
+    "reasoning": "The evidence explicitly mentions Lido V3 Testnet, indicating it's not yet live on Mainnet. The blog post discusses future integrations rather than a completed mainnet deployment.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "AO-01",
+        "impact_type": "Strength Change",
+        "reason": "The text describes the integration of Lido V3 stVaults, which \"enable the minting of stETH against assets held in staking vaults\". This enhances the utility of stETH by providing institutions a way to maintain liquidity alongside staked ETH, strengthening its role as a claim on contract-controlled liquidity. stVaults allow institutions to maintain optional liquidity alongside staked ETH.",
+        "confidence": 0.9,
+        "token_context": "stETH"
+      },
+      {
+        "subtype_code": "M-01",
+        "impact_type": "Creation",
+        "reason": "The text describes that Northstake simplifies Ethereum staking for institutional clients through Lido V3 stVaults, and provides a single point of access for node operator orchestration and staking operations. Institutions are able to manage staking at scale via Northstake\u2019s UI, API, or SDK. This creates a new access privilege for institutional clients to a service/feature available through holding stETH, as it allows institutions to access DeFi integration and manage compliant staking operations without operational complexity.",
+        "confidence": 0.8,
+        "token_context": "stETH"
+      }
+    ],
+    "id": "lido_Lido V3 & Northstake: Simplifying Institutional Ethereum Staking with stVaults"
+  },
+  {
+    "canonical_id": "a6070439-ce6a-4a3e-af64-4de70f88f230",
+    "headline": "ArbOS Dia: Smoother Fees, Higher Throughput",
+    "project": "arbitrum",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://blog.arbitrum.io/arbos-dia/",
+    "supporting_sources": [],
+    "timestamp": "2026-01-08T19:00:42+00:00",
+    "confidence": 0.7,
+    "reasoning": "The article discusses the benefits and outcomes of the Dia upgrade on Arbitrum One & Nova, indicating it's likely intended for mainnet. While it doesn't explicitly state it's live, the focus on benefits suggests it's either live or very close to being live. The language leans towards 'imminent/certain' rather than 'in progress' or 'speculative'.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "G-01",
+        "impact_type": "Parameter Tweak",
+        "reason": "The text states: \"Dia includes pricing updates for Arbitrum One to reduce the severity, frequency, and duration of high L2 gas prices during elevated demand.\" and \"Increasing the default minimum L2 base fee from 0.01 gwei to 0.02 gwei. This helps make spam-style bot activity more expensive, as well as balance and stabilize DAO revenue for the changes from a smoother fee curve.\" These changes directly impact the fees paid on the network, which alters the monetary flows and economic rules defined in G-01. This impacts ARB because DAO revenue stabilization can influence treasury management.",
+        "confidence": 0.9,
+        "token_context": "ARB"
+      },
+      {
+        "subtype_code": "SV-01",
+        "impact_type": "Strength Change",
+        "reason": "The text states: \"Dia advances two operator-critical improvements that help the network behave more predictably under load and lay the groundwork for higher, more sustainable throughput.\" and \"More efficient block packing. Because a per-transaction limit is introduced, the state transition rules are relaxed to allow the final transaction in a block to use up to the MaxTxGasLimit even if it nudges beyond the prior MaxBlockGasLimit.\" This implies an improvement in the ability of the network to execute transactions and order them, directly impacting sequencing and execution rights for users and validators. This enhancement strengthens the utility of the ARB token by improving the network's transaction processing capabilities.",
+        "confidence": 0.8,
+        "token_context": "ARB"
+      }
+    ],
+    "id": "arbitrum_ArbOS Dia: Smoother Fees, Higher Throughput"
+  },
+  {
+    "canonical_id": "91b3cabe-1c28-4d05-8f4f-716d854531a2",
+    "headline": "Curve: 2025 Year in Review",
+    "project": "curve",
+    "network": "ethereum",
+    "status": "deployed_mainnet",
+    "primary_source": "https://news.curve.finance/curve-2025-year-in-review/",
+    "supporting_sources": [
+      "https://news.curve.finance/curve-best-yields-key-metrics-week-2-2026/"
+    ],
+    "timestamp": "2026-01-07T14:39:50+00:00",
+    "confidence": 1.0,
+    "reasoning": "The text explicitly states that FXSwap was added to Curve and pilot markets are being tested, implying it's live on mainnet.",
+    "affected_subtypes": [
+      {
+        "subtype_code": "VD-04",
+        "impact_type": "Strength Change",
+        "reason": "The text states 'CRV Emission Rate Gets a Cut - As Programmed Another August, another CRV Emission Rate cut: ~137.4M \u2192 ~115.5M CRV/year (\u224815.9%) as Epoch 5 starts.' This quote directly shows that the CRV emission rate, which dictates the amount of newly minted CRV tokens distributed each year, was reduced. This directly impacts the 'Inflation Entitlement' of CRV holders, as it alters the amount of newly minted tokens they are entitled to receive.",
+        "confidence": 1.0,
+        "token_context": "CRV"
+      }
+    ],
+    "id": "curve_Curve: 2025 Year in Review"
+  }
+]

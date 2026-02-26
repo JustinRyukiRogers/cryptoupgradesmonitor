@@ -1,6 +1,7 @@
 import feedparser
 import requests
 import json
+import urllib.parse
 from bs4 import BeautifulSoup
 from typing import List, Optional, Set
 from datetime import datetime, timezone
@@ -17,24 +18,29 @@ class BlogRSSAgent(BaseWatcher):
             
             # 1. Try RSS/Atom Feeds
             feed_events = self._poll_rss(blog_url)
-            if feed_events:
-                print(f"  Found {len(feed_events)} events via RSS")
-                for e in feed_events:
-                    if e.url not in seen_urls:
-                        all_events.append(e)
-                        seen_urls.add(e.url)
-                continue # If RSS works, we might skip scraping to be polite, or check others? 
-                         # Usually RSS is best. Let's stop if RSS works well.
+            if feed_events is not None:
+                if len(feed_events) > 0:
+                    print(f"  Found {len(feed_events)} new events via RSS")
+                    for e in feed_events:
+                        if e.url not in seen_urls:
+                            all_events.append(e)
+                            seen_urls.add(e.url)
+                else:
+                    print(f"  Valid RSS feed found. No new events since last cursor.")
+                continue # If we found a valid RSS feed, we don't attempt fallbacks
             
             # 2. Try Sitemap
-            print(f"  RSS failed or empty. Trying Sitemap...")
+            print(f"  RSS failed or missing. Trying Sitemap...")
             sitemap_events = self._poll_sitemap(blog_url)
-            if sitemap_events:
-                print(f"  Found {len(sitemap_events)} events via Sitemap")
-                for e in sitemap_events:
-                    if e.url not in seen_urls:
-                        all_events.append(e)
-                        seen_urls.add(e.url)
+            if sitemap_events is not None:
+                if len(sitemap_events) > 0:
+                    print(f"  Found {len(sitemap_events)} events via Sitemap")
+                    for e in sitemap_events:
+                        if e.url not in seen_urls:
+                            all_events.append(e)
+                            seen_urls.add(e.url)
+                else:
+                    print(f"  Valid Sitemap found. No new events since last cursor.")
                 continue
 
             # 3. Try HTML Fallback (Listing Page)
@@ -49,7 +55,13 @@ class BlogRSSAgent(BaseWatcher):
 
         all_events.sort(key=lambda x: x.timestamp)
         
-        # Ingestion logic handles finding events newer than last_seen_cursor
+        # Safety catch-all filter to ensure no old events slipped through the parsers
+        if self.last_seen_cursor:
+            filtered_events = [e for e in all_events if e.timestamp > self.last_seen_cursor]
+            if len(filtered_events) < len(all_events):
+                print(f"  [Filter] Dropped {len(all_events) - len(filtered_events)} old events globally.")
+            all_events = filtered_events
+            
         # Limit initial fetch to avoid overwhelming the pipeline
         if not self.last_seen_cursor:
             # Sort and take latest N to avoid processing entire history on first run
@@ -59,7 +71,7 @@ class BlogRSSAgent(BaseWatcher):
             
         return all_events
 
-    def _poll_rss(self, blog_url: str) -> List[RawEvent]:
+    def _poll_rss(self, blog_url: str) -> Optional[List[RawEvent]]:
         # ... (Existing RSS logic with minor refactor) ...
         # Common feed paths
         base = blog_url if blog_url.startswith("http") else f"https://{blog_url}"
@@ -100,7 +112,7 @@ class BlogRSSAgent(BaseWatcher):
             except Exception as e:
                 # print(f"Error fetching RSS {url}: {e}")
                 continue
-        return []
+        return None
 
     def _parse_feed_entry(self, entry) -> Optional[RawEvent]:
         # Helper to parse feedparser entry
@@ -137,14 +149,14 @@ class BlogRSSAgent(BaseWatcher):
             raw_data=dict(entry)
         )
 
-    def _poll_sitemap(self, blog_url: str) -> List[RawEvent]:
+    def _poll_sitemap(self, blog_url: str) -> Optional[List[RawEvent]]:
         base = blog_url if blog_url.startswith("http") else f"https://{blog_url}"
         sitemap_url = f"{base.rstrip('/')}/sitemap.xml"
         
         try:
             resp = requests.get(sitemap_url, timeout=10, headers={"User-Agent": "CryptoUpgradeMonitor/1.0"})
             if resp.status_code != 200:
-                return []
+                return None
             
             soup = BeautifulSoup(resp.content, 'xml')
             urls = soup.find_all('url')
@@ -192,7 +204,7 @@ class BlogRSSAgent(BaseWatcher):
             return [e for e in events if e is not None]
         except Exception as e:
             print(f"Sitemap error: {e}")
-            return []
+            return None
 
     def _poll_html(self, blog_url: str) -> List[RawEvent]:
         base = blog_url if blog_url.startswith("http") else f"https://{blog_url}"
@@ -223,7 +235,11 @@ class BlogRSSAgent(BaseWatcher):
                 # This leads to too much noise.
                 return []
                 
+            articles_processed = 0
             for article in articles:
+                if articles_processed >= 20:
+                    break
+                    
                 # Extract Link
                 a_tag = article.find('a')
                 if not a_tag: continue
@@ -231,19 +247,20 @@ class BlogRSSAgent(BaseWatcher):
                 if not link: continue
                 
                 # Resolve relative link
-                if link.startswith('/'):
-                    link = f"{base.rstrip('/')}{link}"
-                elif not link.startswith('http'):
-                    link = f"{base.rstrip('/')}/{link}"
+                link = urllib.parse.urljoin(base, link)
                 
                 # Extract Title
-                title = article.get_text().strip()[:200]
-                if a_tag.get_text():
-                    title = a_tag.get_text().strip()
+                title_tag = article.find(['h1', 'h2', 'h3', 'h4'])
+                if title_tag:
+                    title = title_tag.get_text().strip()
+                elif a_tag.get_text():
+                    title = a_tag.get_text().strip()[:200]
+                else:
+                    title = article.get_text().strip()[:200]
                 
                 # Extract Date logic is hard in generic HTML.
-                # Try <time> tag
-                dt = datetime.now(timezone.utc) # Default to now if not found? Risk of dupes.
+                # Do NOT default to now(). If not found, pass None.
+                dt = None
                 time_tag = article.find('time')
                 if time_tag and time_tag.get('datetime'):
                     try:
@@ -253,18 +270,14 @@ class BlogRSSAgent(BaseWatcher):
                             dt = dt.replace(tzinfo=timezone.utc)
                     except: pass
                 
-                if self.last_seen_cursor and dt <= self.last_seen_cursor:
+                if self.last_seen_cursor and dt and dt <= self.last_seen_cursor:
                     continue
                 
-                events.append(RawEvent(
-                    project=self.project_name,
-                    source_type=SourceType.BLOG,
-                    author="unknown",
-                    text=title,
-                    url=link,
-                    timestamp=dt,
-                    raw_data={"html_snippet": str(article)[:500]}
-                ))
+                event = self._fetch_page_metadata(link, dt)
+                if event:
+                    events.append(event)
+                
+                articles_processed += 1
                 
             return events
 
@@ -272,7 +285,7 @@ class BlogRSSAgent(BaseWatcher):
             print(f"HTML scraping error: {e}")
             return []
 
-    def _fetch_page_metadata(self, url: str, timestamp: datetime) -> Optional[RawEvent]:
+    def _fetch_page_metadata(self, url: str, timestamp: Optional[datetime]) -> Optional[RawEvent]:
         try:
             resp = requests.get(url, timeout=5, headers={"User-Agent": "CryptoUpgradeMonitor/1.0"})
             if resp.status_code != 200: return None
@@ -291,7 +304,7 @@ class BlogRSSAgent(BaseWatcher):
             
             # First try regex on ALL body text to find the earliest mentioned date
             import re
-            body_text = soup.get_text()
+            body_text = soup.get_text(separator=' ')
             body_text_clean = " ".join(body_text.split())
             text = f"{title}: {desc}\n\n{body_text_clean[:4000]}"
             
@@ -300,21 +313,23 @@ class BlogRSSAgent(BaseWatcher):
             
             found_dates = []
             for match in matches:
+                clean_date = match.group(0).replace("Sept", "Sep")
                 try:
-                    dt = datetime.strptime(match.group(0).replace("Sept", "Sep")[:12]+match.group(0)[-5:], '%b %d, %Y').replace(tzinfo=timezone.utc)
+                    dt = datetime.strptime(clean_date, '%B %d, %Y').replace(tzinfo=timezone.utc)
                     found_dates.append(dt)
-                except:
+                except ValueError:
                     try:
-                        dt = datetime.strptime(match.group(0), '%B %d, %Y').replace(tzinfo=timezone.utc)
+                        dt = datetime.strptime(clean_date, '%b %d, %Y').replace(tzinfo=timezone.utc)
                         found_dates.append(dt)
-                    except: pass
+                    except ValueError:
+                        pass
             
             # If we found dates, take the very first one (which corresponds to the article header before the body)
             if found_dates:
                 published_time = found_dates[0]
             
-            # Fallback to metadata ONLY if regex found absolutely nothing
-            if published_time == timestamp:
+            # Fallback to metadata ONLY if regex found absolutely nothing and we came in with no timestamp
+            if not published_time:
                 meta_date = soup.find('meta', attrs={'property': 'article:published_time'})
                 if meta_date:
                     try:
@@ -324,6 +339,15 @@ class BlogRSSAgent(BaseWatcher):
                             dt = dt.replace(tzinfo=timezone.utc)
                         published_time = dt
                     except: pass
+            
+            # STRICT REQUIREMENT: If we still have no published_time here, it is not a blog post.
+            if not published_time:
+                print(f"    [Filter] Discarding {url} - No valid publication date found.")
+                return None
+            
+            # Enforce the date cursor again since the Regex might have shifted the date backwards.
+            if self.last_seen_cursor and published_time <= self.last_seen_cursor:
+                return None
 
             return RawEvent(
                 project=self.project_name,

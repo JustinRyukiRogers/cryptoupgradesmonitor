@@ -1,6 +1,8 @@
 import os
 import json
 from google import genai
+from google.genai.errors import APIError
+from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type
 from typing import List, Optional
 from src.models import RawEvent, RelevanceSignal, UpgradeConfirmation, Evidence, SourceType, AffectedSubtype, ProjectConfig
 
@@ -15,16 +17,25 @@ class GeminiAgent:
         # Using gemini-2.0-flash
         self.model_name = 'gemini-2.0-flash'
 
+    # Truncated exponential backoff: 2s, 4s, 8s, 16s, 32s (max 60s) for up to 6 attempts
+    @retry(
+        wait=wait_exponential(multiplier=2, min=2, max=60),
+        stop=stop_after_attempt(6),
+        retry=retry_if_exception_type(APIError)
+    )
+    def _call_gemini_with_retry(self, prompt: str):
+        return self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt,
+            config={
+                'response_mime_type': 'application/json'
+            }
+        )
+
     def generate_json(self, prompt: str) -> dict:
         try:
-            # New SDK usage
-            response = self.client.models.generate_content(
-                model=self.model_name,
-                contents=prompt,
-                config={
-                    'response_mime_type': 'application/json'
-                }
-            )
+            # New SDK usage with tenacity retry wrapper
+            response = self._call_gemini_with_retry(prompt)
             
             # response.text is widely supported property, but new SDK might use response.text or response.candidates[0].content.parts[0].text
             # Checking documentation: response.text is usually available helper.

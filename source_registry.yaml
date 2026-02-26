@@ -4,13 +4,10 @@ projects:
     - ethereum
     relevant_tokens:
     - ETH
-    x_accounts:
-    - '@ethereum'
-    - '@TimBeiko'
     blogs:
     - blog.ethereum.org
     governance:
-    - https://blog.ethereum.org/#
+    - blog.ethereum.org/#
   uniswap:
     networks:
     - ethereum
@@ -20,7 +17,7 @@ projects:
     - '@Uniswap'
     - '@UniswapFND'
     blogs:
-    - https://blog.uniswap.org/
+    - blog.uniswap.org/
   eigenlayer:
     networks:
     - ethereum
@@ -30,4 +27,315 @@ projects:
     - '@eigenlayer'
     blogs:
     - blog.eigenlayer.xyz
-
+  solana:
+    networks:
+    - solana
+    relevant_tokens:
+    - SOL
+    blogs:
+    - solana.com/news
+  binance:
+    networks:
+    - bnb
+    relevant_tokens:
+    - BNB
+    blogs:
+    - binance.com/en/blog
+  celestia:
+    networks:
+    - celestia
+    relevant_tokens:
+    - TIA
+    blogs:
+    - blog.celestia.org
+  arbitrum:
+    networks:
+    - arbitrum
+    relevant_tokens:
+    - ARB
+    blogs:
+    - blog.arbitrum.io/
+  optimism:
+    networks:
+    - optimism
+    relevant_tokens:
+    - OP
+    blogs:
+    - www.optimism.io/blog
+  dogecoin:
+    networks:
+    - dogecoin
+    relevant_tokens:
+    - DOGE
+    blogs:
+    - foundation.dogecoin.com/blog
+  morpho:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - MORPHO
+    blogs:
+    - morpho.org/blog/
+  ethereum_name_service:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - ENS
+    blogs:
+    - ens.domains/blog
+  jito:
+    networks:
+    - solana
+    relevant_tokens:
+    - JTO
+    blogs:
+    - www.jito.network/blog/
+  hyperliquid:
+    networks:
+    - hyperliquid
+    relevant_tokens:
+    - HYPE
+    blogs:
+    - app.hyperliquid.xyz/announcements
+  lido:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - LDO
+    - stETH
+    blogs:
+    - blog.lido.fi/rss/
+  kaito:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - KAITO
+    blogs: []
+  pyth_network:
+    networks:
+    - solana
+    relevant_tokens:
+    - PYTH
+    blogs:
+    - www.pyth.network/blog
+  wormhole:
+    networks:
+    - solana
+    relevant_tokens:
+    - W
+    blogs:
+    - wormhole.com/blog
+  polkadot:
+    networks:
+    - polkadot
+    relevant_tokens:
+    - DOT
+    blogs: []
+  circle:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - USDC
+    blogs:
+    - www.circle.com/blog-all
+  tether:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - USDT
+    - XAUT
+    blogs:
+    - tether.io/news/
+  cardano:
+    networks:
+    - cardano
+    relevant_tokens:
+    - ADA
+    blogs:
+    - cardanofoundation.org/blog
+  injective:
+    networks:
+    - injective
+    relevant_tokens:
+    - INJ
+    blogs:
+    - blog.injective.com
+  jasmy:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - JASMY
+    blogs: 
+    - jasmy-global.medium.com
+  cosmos:
+    networks:
+    - cosmos
+    relevant_tokens:
+    - ATOM
+    blogs:
+    - blog.cosmos.network
+  raydium:
+    networks:
+    - solana
+    relevant_tokens:
+    - RAY
+    blogs: []
+  stacks:
+    networks:
+    - stacks
+    relevant_tokens:
+    - STX
+    blogs:
+    - stacks.co/blog
+  nexo:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - NEXO
+    blogs:
+    - nexo.com/blog
+  aave:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - AAVE
+    blogs:
+    - governance.aave.com
+    - aave.com/blog
+  livepeer:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - LPT
+    blogs: []
+  brave:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - BAT
+    blogs:
+    - brave.com/blog
+  chainlink:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - LINK
+    blogs:
+    - blog.chain.link
+  ripple:
+    networks:
+    - xrpl
+    relevant_tokens:
+    - XRP
+    blogs:
+    - ripple.com/insights
+  hedera:
+    networks:
+    - hedera
+    relevant_tokens:
+    - HBAR
+    blogs:
+    - hedera.com/blog
+  stellar:
+    networks:
+    - stellar
+    relevant_tokens:
+    - XLM
+    blogs:
+    - stellar.org/blog
+  hivemapper:
+    networks:
+    - solana
+    relevant_tokens:
+    - HONEY
+    blogs: []
+  chiliz:
+    networks:
+    - chiliz
+    relevant_tokens:
+    - CHZ
+    blogs:
+    - www.chiliz.com/blog/announcements/feed/
+  zksync:
+    networks:
+    - zksync
+    relevant_tokens:
+    - ZK
+    blogs:
+    - api.paragraph.com/blogs/rss/@zksync
+  render:
+    networks:
+    - solana
+    relevant_tokens:
+    - RENDER
+    blogs: []
+  avalanche:
+    networks:
+    - avalanche
+    relevant_tokens:
+    - AVAX
+    blogs:
+    - www.avax.network/about/blog
+  bitget:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - BGB
+    blogs:
+    - bitget.com/blog
+  sui:
+    networks:
+    - sui
+    relevant_tokens:
+    - SUI
+    blogs:
+    - blog.sui.io
+  tron:
+    networks:
+    - tron
+    relevant_tokens:
+    - TRX
+    blogs:
+    - tron.network/blog
+  litecoin:
+    networks:
+    - litecoin
+    relevant_tokens:
+    - LTC
+    blogs:
+    - litecoin.com/news
+  bitfinex:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - LEO
+    blogs:
+    - blog.bitfinex.com/category/announcements/
+  helium:
+    networks:
+    - solana
+    relevant_tokens:
+    - HNT
+    blogs:
+    - blog.helium.com/
+  curve:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - CRV
+    blogs:
+    - news.curve.finance/
+  ton:
+    networks:
+    - ton
+    relevant_tokens:
+    - TON
+    blogs:
+    - ton.org/en/newsroom/news
+  ondo_finance:
+    networks:
+    - ethereum
+    relevant_tokens:
+    - ONDO
+    blogs:
+    - ondo.finance/blog

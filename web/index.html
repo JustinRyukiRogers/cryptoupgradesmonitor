@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,12 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="background-elements">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
     </div>
-    
+
     <div class="app-container">
         <header>
             <div class="logo-container">
@@ -26,18 +28,42 @@
 
         <main>
             <section class="controls">
-                <div class="filter-group">
-                    <label for="protocol-filter">Protocol Filter</label>
-                    <div class="select-wrapper">
-                        <select id="protocol-filter">
-                            <option value="all">All Protocols</option>
-                            <!-- Options injected via JS -->
-                        </select>
+                <div class="filter-controls-row" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <div class="filter-group">
+                        <label for="protocol-filter">Protocol</label>
+                        <div class="select-wrapper">
+                            <select id="protocol-filter">
+                                <option value="all">All Protocols</option>
+                                <!-- Options injected via JS -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <div class="select-wrapper">
+                            <select id="status-filter">
+                                <option value="all">All Statuses</option>
+                                <option value="confirmed">Confirmed (Live)</option>
+                                <option value="imminent">Imminent / Certain</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="speculative">Speculative / Proposals</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="certainty-filter">Functionality Certainty</label>
+                        <div class="select-wrapper">
+                            <select id="certainty-filter">
+                                <option value="all">Any Certainty</option>
+                                <option value="0.7">High (≥ 0.70)</option>
+                                <option value="0.9">Very High (≥ 0.90)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="search-group">
+                <div class="search-group" style="margin-top: 1rem;">
                     <label for="search-input">Search Updates</label>
-                    <input type="text" id="search-input" placeholder="Search headlines...">
+                    <input type="text" id="search-input" placeholder="Search headlines or reasoning...">
                 </div>
             </section>
 
@@ -55,4 +81,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingEl = document.getElementById('loading');
     const emptyStateEl = document.getElementById('empty-state');
     const protocolFilter = document.getElementById('protocol-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const certaintyFilter = document.getElementById('certainty-filter');
     const searchInput = document.getElementById('search-input');
 
     let allUpgrades = [];
@@ -164,6 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Filter logic
     function applyFilters() {
         const protocol = protocolFilter.value;
+        const status = statusFilter.value;
+        const minCertaintyStr = certaintyFilter.value;
+        const minCertainty = minCertaintyStr === 'all' ? 0 : parseFloat(minCertaintyStr);
         const query = searchInput.value.toLowerCase();
 
         let filtered = [...allUpgrades];
@@ -178,13 +183,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const h = u.headline || '';
             const r = u.reasoning || '';
             const matchQuery = query === '' || h.toLowerCase().includes(query) || r.toLowerCase().includes(query);
-            return matchProtocol && matchQuery;
+
+            // Match Status
+            let matchStatus = true;
+            if (status !== 'all') {
+                const confScore = u.confidence !== undefined ? u.confidence : 0;
+                if (status === 'confirmed') matchStatus = confScore >= 0.95;
+                else if (status === 'imminent') matchStatus = confScore >= 0.7 && confScore < 0.95;
+                else if (status === 'in-progress') matchStatus = confScore >= 0.4 && confScore < 0.7;
+                else if (status === 'speculative') matchStatus = confScore >= 0.2 && confScore < 0.4;
+            }
+
+            // Match Functionality Certainty
+            let matchCertainty = true;
+            if (minCertainty > 0) {
+                if (!u.affected_subtypes || u.affected_subtypes.length === 0) {
+                    matchCertainty = false;
+                } else {
+                    // Check if *any* subtype meets the certainty threshold
+                    matchCertainty = u.affected_subtypes.some(st => (st.confidence !== undefined ? st.confidence : 0) >= minCertainty);
+                }
+            }
+
+            return matchProtocol && matchQuery && matchStatus && matchCertainty;
         });
 
         renderFeed(filtered);
     }
 
     protocolFilter.addEventListener('change', applyFilters);
+    statusFilter.addEventListener('change', applyFilters);
+    certaintyFilter.addEventListener('change', applyFilters);
     searchInput.addEventListener('input', applyFilters);
 
     // Initial load
