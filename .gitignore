@@ -4,3 +4,12 @@ __pycache__/
 .DS_Store
 venv/
 .pytest_cache/
+
+# Runtime Data
+data/
+upgrades.json
+state.json
+
+# Test Scripts
+*test*.py
+debug_*.py
