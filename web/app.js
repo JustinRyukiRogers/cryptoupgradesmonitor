@@ -10,22 +10,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let allUpgrades = [];
     let uniqueProtocols = new Set();
 
-    // Fetch data
+    // Fetch data from Supabase REST API
     async function loadData() {
         try {
-            // Adding a cache buster for local development to assure fresh data from /data/upgrades.json
-            const response = await fetch(`/data/upgrades.json?t=${new Date().getTime()}`);
-            if (!response.ok) throw new Error('Failed to fetch data');
+            // Replace with your actual Supabase URL and anon key when hosting
+            const SUPABASE_URL = 'https://fsqjviyyfchoqiioefhk.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzcWp2aXl5ZmNob3FpaW9lZmhrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwNjgwOTIsImV4cCI6MjA4NzY0NDA5Mn0.gI0GAua5hiIHO3ke_sbiZLeDVAjMlTwbtVc42P5m5L8';
+
+            const response = await fetch(`${SUPABASE_URL}/rest/v1/upgrades?select=payload&order=timestamp.desc`, {
+                headers: {
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                }
+            });
+
+            if (!response.ok) throw new Error('Failed to fetch data from Supabase');
             const data = await response.json();
 
-            // Log total fetched
-            console.log(`Fetched ${data.length} upgrades`);
+            // Extract the payload object from the Supabase rows
+            const upgrades = data.map(row => row.payload);
 
-            // Populate our list
-            allUpgrades = data;
+            console.log(`Fetched ${upgrades.length} upgrades from Supabase`);
+            allUpgrades = upgrades;
 
             // Extract unique protocols
-            data.forEach(u => {
+            upgrades.forEach(u => {
                 if (u.project) {
                     uniqueProtocols.add(u.project.toLowerCase());
                 }

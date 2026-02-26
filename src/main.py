@@ -69,7 +69,7 @@ def main():
     canonicalizer = UpgradeCanonicalizerAgent()
 
     # Polling Loop
-    while True:
+    if True:
         print("\n--- Polling Cycle ---")
         all_events: List[RawEvent] = []
         
@@ -167,8 +167,7 @@ def main():
         # Write all discovered upgrades to disk in one batch
         output_manager.flush()
 
-        print("Cycle complete. Sleeping for 60s...")
-        time.sleep(60)
+        print("Serverless execution cycle complete. Shutting down worker.")
 
 if __name__ == "__main__":
     try:
