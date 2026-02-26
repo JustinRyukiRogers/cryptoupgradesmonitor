@@ -123,24 +123,36 @@ document.addEventListener('DOMContentLoaded', () => {
             let subtypesHtml = '';
             if (upgrade.affected_subtypes && upgrade.affected_subtypes.length > 0) {
                 subtypesHtml = '<div class="subtypes-container">';
+                subtypesHtml += `<div class="subtypes-header">
+                    <div class="subtype-col-code">Sub-Type</div>
+                    <div class="subtype-col-impact">Strength</div>
+                    <div class="subtype-col-reason">Description</div>
+                </div>`;
+
                 upgrade.affected_subtypes.forEach(st => {
                     const impactClass = st.impact_type ? st.impact_type.toLowerCase().trim().replace(/\s+/g, '-') : 'unknown';
                     const confidenceHtml = st.confidence !== undefined
-                        ? `<span class="subtype-confidence" title="Agent Confidence: ${st.confidence * 100}%">${Math.round(st.confidence * 100)}%</span>`
+                        ? `<span class="subtype-confidence" title="Agent Confidence: ${st.confidence * 100}%">Strength: ${Math.round(st.confidence * 100)}%</span>`
                         : '';
                     const tokenHtml = st.token_context
                         ? `<span class="subtype-token">${st.token_context}</span>`
                         : '';
 
                     subtypesHtml += `
-                        <div class="subtype-card">
-                            <div class="subtype-badge">
+                        <div class="subtype-row">
+                            <div class="subtype-col-code">
                                 <span class="subtype-code">${st.subtype_code}</span>
-                                <span class="subtype-impact impact-${impactClass}">${st.impact_type}</span>
-                                ${confidenceHtml}
-                                ${tokenHtml}
                             </div>
-                            <div class="subtype-reason">${st.reason}</div>
+                            <div class="subtype-col-impact">
+                                <div class="impact-metrics-container">
+                                    <span class="subtype-impact impact-${impactClass}">${st.impact_type}</span>
+                                    ${confidenceHtml}
+                                </div>
+                            </div>
+                            <div class="subtype-col-reason">
+                                <div class="subtype-reason">${st.reason}</div>
+                                ${tokenHtml ? `<div class="subtype-token-wrapper">${tokenHtml}</div>` : ''}
+                            </div>
                         </div>
                     `;
                 });
@@ -149,7 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.innerHTML = `
                 <div class="card-header">
-                    <span class="protocol-pill">${upgrade.project}</span>
+                    <div class="protocol-pill-container">
+                        <div class="protocol-logo"></div>
+                        <span class="protocol-pill">${upgrade.project}</span>
+                    </div>
                     <span class="timestamp">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         ${timestampStr}
@@ -159,10 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${subtypesHtml}
                 ${reasoning}
                 <div class="card-meta">
-                    <div class="meta-item">
-                        <span class="status-indicator status-${statusClass}"></span>
-                        <span>${confidenceLabel}</span>
-                    </div>
+                    <span class="status-badge status-${statusClass}">${confidenceLabel}</span>
                 </div>
             `;
 
