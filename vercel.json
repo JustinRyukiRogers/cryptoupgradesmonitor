@@ -1,5 +1,29 @@
 {
     "version": 2,
+    "builds": [
+        {
+            "src": "api/**/*.py",
+            "use": "@vercel/python"
+        },
+        {
+            "src": "web/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/$1"
+        },
+        {
+            "source": "/",
+            "destination": "/web/index.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/web/$1"
+        }
+    ],
     "crons": [
         {
             "path": "/api/cron",
