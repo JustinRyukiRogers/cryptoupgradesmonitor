@@ -15,7 +15,7 @@ class GeminiAgent:
         # New SDK initialization
         self.client = genai.Client(api_key=api_key)
         # Using gemini-2.0-flash
-        self.model_name = 'gemini-2.0-flash'
+        self.model_name = 'gemini-3.1-flash-lite-preview'
 
     # Truncated exponential backoff: 2s, 4s, 8s, 16s, 32s (max 60s) for up to 6 attempts
     @retry(
@@ -36,11 +36,16 @@ class GeminiAgent:
         try:
             # New SDK usage with tenacity retry wrapper
             response = self._call_gemini_with_retry(prompt)
+            # Extract the actual text from the first candidate's parts to avoid the thought_signature warning
+            try:
+                text_content = ""
+                for part in response.candidates[0].content.parts:
+                    if hasattr(part, 'text') and part.text:
+                        text_content += part.text
+            except Exception:
+                text_content = response.text
             
-            # response.text is widely supported property, but new SDK might use response.text or response.candidates[0].content.parts[0].text
-            # Checking documentation: response.text is usually available helper.
-            
-            data = json.loads(response.text)
+            data = json.loads(text_content)
             if isinstance(data, list):
                 if data and isinstance(data[0], dict):
                     return data[0]
